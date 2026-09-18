@@ -175,9 +175,9 @@
         <div class="flex items-center space-x-3 bg-m3-surfaceVariant/60 p-2 rounded-m3-full border border-m3-outline/20 shadow-sm">
             <span class="text-xs font-bold text-m3-onSurfaceVariant/70 pl-2 hidden sm:inline">Тема:</span>
             <div class="flex items-center space-x-1.5">
-                <button onclick="setTheme('lavender')" title="Лаванда (?theme=lavender)" class="w-7 h-7 rounded-full bg-[#6750a4] border-2 border-white shadow-sm hover:scale-110 transition focus:outline-none focus:ring-2 focus:ring-m3-primary"></button>
-                <button onclick="setTheme('dark')" title="Темная (?theme=dark)" class="w-7 h-7 rounded-full bg-[#1c1b1f] border-2 border-white shadow-sm hover:scale-110 transition focus:outline-none focus:ring-2 focus:ring-m3-primary"></button>
-                <button onclick="setTheme('coral')" title="Коралл (?theme=coral)" class="w-7 h-7 rounded-full bg-[#9c4323] border-2 border-white shadow-sm hover:scale-110 transition focus:outline-none focus:ring-2 focus:ring-m3-primary"></button>
+                <button id="theme-btn-lavender" onclick="setTheme('lavender')" title="Лаванда (?theme=lavender)" class="w-7 h-7 rounded-full bg-[#6750a4] border-2 border-white shadow-sm hover:scale-110 transition focus:outline-none"></button>
+                <button id="theme-btn-dark" onclick="setTheme('dark')" title="Темная (?theme=dark)" class="w-7 h-7 rounded-full bg-[#1c1b1f] border-2 border-white shadow-sm hover:scale-110 transition focus:outline-none"></button>
+                <button id="theme-btn-coral" onclick="setTheme('coral')" title="Коралл (?theme=coral)" class="w-7 h-7 rounded-full bg-[#9c4323] border-2 border-white shadow-sm hover:scale-110 transition focus:outline-none"></button>
             </div>
             <div class="h-5 w-px bg-m3-outline/30"></div>
             <button onclick="switchSection('hotlines')" class="text-xs sm:text-sm px-3.5 py-1.5 rounded-m3-full font-bold text-m3-onSurfaceVariant hover:bg-m3-surface transition flex items-center space-x-1.5">
@@ -485,8 +485,8 @@
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        // Material You Dynamic Theme Switcher with ?theme= Support
-        function setTheme(themeName) {
+        // Material You Dynamic Theme Switcher with ?theme= Support & URL Address Sync
+        function setTheme(themeName, updateUrl = true) {
             // Remove existing theme classes
             document.body.classList.remove('theme-lavender', 'theme-dark', 'theme-coral');
             
@@ -502,6 +502,20 @@
                 document.body.classList.add(`theme-${currentTheme}`);
             }
 
+            // Save choice in localStorage
+            try {
+                localStorage.setItem('moral_tape_theme', currentTheme);
+            } catch (e) {}
+
+            // Update ?theme= query parameter in browser address bar
+            if (updateUrl && window.history && window.history.replaceState) {
+                const url = new URL(window.location.href);
+                url.searchParams.set('theme', currentTheme);
+                window.history.replaceState(null, '', url.toString());
+            }
+
+
+
             let themeLabel = 'Лаванда';
             if (currentTheme === 'dark') themeLabel = 'Темная';
             if (currentTheme === 'coral') themeLabel = 'Коралл';
@@ -509,14 +523,21 @@
             showToast(`Тема изменена: ${themeLabel} (?theme=${currentTheme})`);
         }
 
-        // Parse theme URL parameter on page load if provided
+        // Parse theme URL parameter or LocalStorage on page load
         function initThemeFromURL() {
             const urlParams = new URLSearchParams(window.location.search);
             const themeParam = urlParams.get('theme');
+            let savedTheme = null;
+            try {
+                savedTheme = localStorage.getItem('moral_tape_theme');
+            } catch (e) {}
+
             if (themeParam && ['lavender', 'dark', 'coral'].includes(themeParam.toLowerCase())) {
-                setTheme(themeParam.toLowerCase());
+                setTheme(themeParam.toLowerCase(), false);
+            } else if (savedTheme && ['lavender', 'dark', 'coral'].includes(savedTheme)) {
+                setTheme(savedTheme, true);
             } else {
-                currentTheme = 'lavender';
+                setTheme('lavender', true);
             }
         }
 
