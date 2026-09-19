@@ -123,15 +123,6 @@
         .m3-btn:active {
             transform: scale(0.96);
         }
-
-        /* Breathing Circle Pulse Animation */
-        @keyframes breathePulse {
-            0%, 100% { transform: scale(1); opacity: 0.75; }
-            50% { transform: scale(1.4); opacity: 1; }
-        }
-        .animate-breathe {
-            animation: breathePulse 8s cubic-bezier(0.4, 0, 0.2, 1) infinite;
-        }
     </style>
 </head>
 <body class="bg-m3-surface text-m3-onSurface min-h-screen flex flex-col font-sans transition-colors duration-300 antialiased selection:bg-m3-primaryContainer selection:text-m3-onPrimaryContainer">
@@ -211,7 +202,7 @@
             <!-- Material You Interactive Persona Selection Cards -->
             <div class="grid md:grid-cols-2 gap-6 pt-2 max-w-4xl mx-auto">
                 
-                <!-- CARD 1: VICTIM / TARGET WITH EXTERNAL REDIRECT TO INSTRUCTION PAGE -->
+                <!-- CARD 1: VICTIM / TARGET WITH EXTERNAL REDIRECT -->
                 <div onclick="redirectToHeavy()" class="m3-card bg-m3-primaryContainer text-m3-onPrimaryContainer rounded-m3-xl p-6 sm:p-9 flex flex-col justify-between border border-m3-outline/10 shadow-m3-1 relative overflow-hidden group cursor-pointer hover:border-m3-primary/50 transition">
                     <div class="absolute -right-8 -bottom-8 w-40 h-40 bg-m3-primary/10 rounded-full blur-2xl group-hover:scale-150 transition-transform duration-500"></div>
                     
@@ -236,8 +227,8 @@
                     </div>
                 </div>
 
-                <!-- CARD 2: AGGRESSOR / BULLY LOOKING TO CHANGE -->
-                <div class="m3-card bg-m3-secondaryContainer text-m3-onSecondaryContainer rounded-m3-xl p-6 sm:p-9 flex flex-col justify-between border border-m3-outline/10 shadow-m3-1 relative overflow-hidden group">
+                <!-- CARD 2: AGGRESSOR / BULLY LOOKING TO CHANGE WITH REDIRECT TO VYHOD/B -->
+                <div onclick="redirectToBully()" class="m3-card bg-m3-secondaryContainer text-m3-onSecondaryContainer rounded-m3-xl p-6 sm:p-9 flex flex-col justify-between border border-m3-outline/10 shadow-m3-1 relative overflow-hidden group cursor-pointer hover:border-m3-secondary/50 transition">
                     <div class="absolute -right-8 -bottom-8 w-40 h-40 bg-m3-secondary/10 rounded-full blur-2xl group-hover:scale-150 transition-transform duration-500"></div>
                     
                     <div class="space-y-4 relative z-10">
@@ -249,12 +240,12 @@
                             <h3 class="text-2xl sm:text-3xl font-black mt-1 text-m3-onSecondaryContainer font-heading">Я чувствую злость / Обижаю других</h3>
                         </div>
                         <p class="text-sm sm:text-base text-m3-onSecondaryContainer/85 leading-relaxed font-medium">
-                            Если эмоции выходят из-под контроля, хочется срываться на других или ты сожалеешь о содеянном. Признать это — смелый шаг. Давай разберемся вместе.
+                            Если эмоции выходят из-под контроля, хочется срываться на других или ты сожалеешь о содеянном. Перейди в этот раздел, чтобы разобраться в себе.
                         </p>
                     </div>
 
                     <div class="pt-8 relative z-10">
-                        <button onclick="switchSection('bully-hub')" class="m3-btn w-full bg-m3-secondary text-white hover:opacity-95 font-bold py-4 px-6 rounded-m3-full flex items-center justify-center space-x-3 shadow-m3-2 text-base">
+                        <button onclick="event.stopPropagation(); redirectToBully();" class="m3-btn w-full bg-m3-secondary text-white hover:opacity-95 font-bold py-4 px-6 rounded-m3-full flex items-center justify-center space-x-3 shadow-m3-2 text-base">
                             <span>Разобраться в себе</span>
                             <i class="fa-solid fa-compass"></i>
                         </button>
@@ -280,97 +271,7 @@
 
         </section>
 
-        <!-- SECTION 2: BULLY / AGGRESSOR HUB -->
-        <section id="section-bully-hub" class="hidden space-y-6 animate-fadeIn">
-            
-            <!-- Navigation Back Button & Badge -->
-            <div class="flex items-center justify-between">
-                <button onclick="switchSection('home')" class="inline-flex items-center space-x-2 text-sm font-bold text-m3-secondary bg-m3-secondaryContainer/60 hover:bg-m3-secondaryContainer px-4 py-2.5 rounded-m3-full transition">
-                    <i class="fa-solid fa-arrow-left"></i>
-                    <span>На главную</span>
-                </button>
-                <span class="text-xs bg-m3-secondaryContainer text-m3-onSecondaryContainer px-3.5 py-1.5 rounded-m3-full font-bold">Раздел самопознания</span>
-            </div>
-
-            <!-- Header Hero Box -->
-            <div class="bg-m3-secondaryContainer/40 p-6 sm:p-9 rounded-m3-xl border border-m3-outline/10 space-y-3">
-                <h2 class="text-2xl sm:text-4xl font-black text-m3-onSurface font-heading">Если ты чувствуешь злость или обижаешь других</h2>
-                <p class="text-m3-onSurfaceVariant text-sm sm:text-base max-w-3xl font-medium leading-relaxed">
-                    То, что ты зашел сюда — это знак высокой зрелости. Иногда злость, желание доминировать или выместить обиду берут верх. Но ты в силах изменить то, как ты выражаешь свои эмоции.
-                </p>
-            </div>
-
-            <!-- Interactive Self-reflection Checklist -->
-            <div class="bg-m3-surface p-6 sm:p-8 rounded-m3-xl border border-m3-outline/30 space-y-4 shadow-m3-1">
-                <h3 class="font-bold text-xl text-m3-onSurface font-heading flex items-center space-x-2.5">
-                    <i class="fa-solid fa-brain text-m3-secondary"></i>
-                    <span>Откуда берется желание задевать других? (Отметь, что знакомо)</span>
-                </h3>
-                
-                <div class="grid sm:grid-cols-2 gap-3 text-xs sm:text-sm">
-                    <label class="flex items-start space-x-3 p-4 rounded-m3-md bg-m3-surfaceVariant/30 hover:bg-m3-surfaceVariant/60 cursor-pointer transition">
-                        <input type="checkbox" class="mt-1 w-4 h-4 rounded border-m3-outline text-m3-secondary focus:ring-m3-secondary">
-                        <span class="font-medium text-m3-onSurface"><strong>Защита:</strong> Я сам(а) испытывал(а) боль и пытаюсь первым проявить силу, чтобы меня не обидели.</span>
-                    </label>
-
-                    <label class="flex items-start space-x-3 p-4 rounded-m3-md bg-m3-surfaceVariant/30 hover:bg-m3-surfaceVariant/60 cursor-pointer transition">
-                        <input type="checkbox" class="mt-1 w-4 h-4 rounded border-m3-outline text-m3-secondary focus:ring-m3-secondary">
-                        <span class="font-medium text-m3-onSurface"><strong>Авторитет:</strong> Мне кажется, что только так меня будут уважать и замечать в компании.</span>
-                    </label>
-
-                    <label class="flex items-start space-x-3 p-4 rounded-m3-md bg-m3-surfaceVariant/30 hover:bg-m3-surfaceVariant/60 cursor-pointer transition">
-                        <input type="checkbox" class="mt-1 w-4 h-4 rounded border-m3-outline text-m3-secondary focus:ring-m3-secondary">
-                        <span class="font-medium text-m3-onSurface"><strong>Стресс:</strong> Внутри накопилось много гнева из-за проблем дома, в учебе или личной жизни.</span>
-                    </label>
-
-                    <label class="flex items-start space-x-3 p-4 rounded-m3-md bg-m3-surfaceVariant/30 hover:bg-m3-surfaceVariant/60 cursor-pointer transition">
-                        <input type="checkbox" class="mt-1 w-4 h-4 rounded border-m3-outline text-m3-secondary focus:ring-m3-secondary">
-                        <span class="font-medium text-m3-onSurface"><strong>За компанию:</strong> Все смеялись, и я поддержал(а) шутку, не задумываясь, как это ранит другого.</span>
-                    </label>
-                </div>
-            </div>
-
-            <!-- 3 Step Protocol for Anger Control -->
-            <div class="grid md:grid-cols-3 gap-5">
-                <div class="bg-m3-secondaryContainer/25 p-6 rounded-m3-lg border border-m3-outline/20 space-y-2">
-                    <div class="text-m3-secondary font-black text-xs tracking-widest uppercase font-heading">Шаг 1: Пауза</div>
-                    <h4 class="font-bold text-lg font-heading">Правило 10 секунд</h4>
-                    <p class="text-xs sm:text-sm text-m3-onSurfaceVariant font-medium leading-relaxed">
-                        Когда хочется написать злой комментарий или толкнуть кого-то — сделай глубокий вдох и сосчитай про себя до 10. Дай разумной части мозга включиться.
-                    </p>
-                </div>
-
-                <div class="bg-m3-secondaryContainer/25 p-6 rounded-m3-lg border border-m3-outline/20 space-y-2">
-                    <div class="text-m3-secondary font-black text-xs tracking-widest uppercase font-heading">Шаг 2: Вспышка</div>
-                    <h4 class="font-bold text-lg font-heading">Сбрось пар без вреда</h4>
-                    <p class="text-xs sm:text-sm text-m3-onSurfaceVariant font-medium leading-relaxed">
-                        Сжатый кулак, отжимания, пробежка, быстрая ходьба или скомканный лист бумаги помогают сбросить лишний адреналин безопасно для людей вокруг.
-                    </p>
-                </div>
-
-                <div class="bg-m3-secondaryContainer/25 p-6 rounded-m3-lg border border-m3-outline/20 space-y-2">
-                    <div class="text-m3-secondary font-black text-xs tracking-widest uppercase font-heading">Шаг 3: Шаг вперед</div>
-                    <h4 class="font-bold text-lg font-heading">Сила признать ошибку</h4>
-                    <p class="text-xs sm:text-sm text-m3-onSurfaceVariant font-medium leading-relaxed">
-                        Короткое сообщение: «Слушай, я был(а) не прав(а) вчера. Извини за резкость» — сделает тебя гораздо сильнее в глазах окружающих.
-                    </p>
-                </div>
-            </div>
-
-            <!-- Help CTA -->
-            <div class="bg-m3-surfaceVariant/40 p-6 sm:p-8 rounded-m3-xl text-center space-y-4 border border-m3-outline/20">
-                <h3 class="font-bold text-xl font-heading">Трудно справляться с эмоциями самостоятельно?</h3>
-                <p class="text-xs sm:text-sm text-m3-onSurfaceVariant max-w-xl mx-auto font-medium leading-relaxed">
-                    Психологи горячей линии помогают не только тем, кого обижают, но и тем, кто сам чувствует постоянную злость или вспышки гнева.
-                </p>
-                <button onclick="switchSection('hotlines')" class="m3-btn bg-m3-secondary text-white font-bold px-8 py-3.5 rounded-m3-full shadow-m3-1 inline-flex items-center space-x-2 text-base">
-                    <i class="fa-solid fa-user-doctor"></i>
-                    <span>Анонимный разговор с психологом</span>
-                </button>
-            </div>
-        </section>
-
-        <!-- SECTION 3: HOTLINES & CONTACTS -->
+        <!-- SECTION 2: HOTLINES & CONTACTS -->
         <section id="section-hotlines" class="hidden space-y-6 animate-fadeIn">
             
             <!-- Navigation Back Button & Badge -->
@@ -469,9 +370,16 @@
             window.location.href = targetUrl;
         }
 
+        // Redirect handler for "Я чувствую злость / Обижаю других" (bully) section
+        function redirectToBully() {
+            const baseUrl = 'https://moraltape.github.io/instr/joint/vyhod/b';
+            const targetUrl = `${baseUrl}?theme=${encodeURIComponent(currentTheme)}`;
+            window.location.href = targetUrl;
+        }
+
         // Section Navigation
         function switchSection(sectionId) {
-            const sections = ['home', 'bully-hub', 'hotlines'];
+            const sections = ['home', 'hotlines'];
             sections.forEach(id => {
                 const el = document.getElementById(`section-${id}`);
                 if (el) {
@@ -487,40 +395,33 @@
 
         // Material You Dynamic Theme Switcher with ?theme= Support & URL Address Sync
         function setTheme(themeName, updateUrl = true) {
-            // Remove existing theme classes
             document.body.classList.remove('theme-lavender', 'theme-dark', 'theme-coral');
             
-            // Set current state
             if (['lavender', 'dark', 'coral'].includes(themeName)) {
                 currentTheme = themeName;
             } else {
                 currentTheme = 'lavender';
             }
 
-            // Apply body class if not default
             if (currentTheme !== 'lavender') {
                 document.body.classList.add(`theme-${currentTheme}`);
             }
 
-            // Save choice in localStorage
             try {
                 localStorage.setItem('moral_tape_theme', currentTheme);
             } catch (e) {}
 
-            // Update ?theme= query parameter in browser address bar
             if (updateUrl && window.history && window.history.replaceState) {
                 const url = new URL(window.location.href);
                 url.searchParams.set('theme', currentTheme);
                 window.history.replaceState(null, '', url.toString());
             }
 
-
-
             let themeLabel = 'Лаванда';
             if (currentTheme === 'dark') themeLabel = 'Темная';
             if (currentTheme === 'coral') themeLabel = 'Коралл';
 
-            showToast(`Тема изменена: ${themeLabel} (?theme=${currentTheme})`);
+            showToast(`Тема изменена: ${themeLabel}`);
         }
 
         // Parse theme URL parameter or LocalStorage on page load
@@ -568,7 +469,6 @@
         // On document load initialization
         window.onload = function() {
             initThemeFromURL();
-            console.log('Moral Scotch initialized with redirect support.');
         };
     </script>
 </body>
