@@ -1,200 +1,124 @@
 <!DOCTYPE html>
-<html lang="ru" class="scroll-smooth">
+<html lang="ru" class="theme-lavender">
 <head>
     <meta charset="UTF-8">
+    <!-- Скрипт предотвращения белого мигания (Anti-Flicker) -->
+    <script>
+        (function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const theme = urlParams.get('theme') || localStorage.getItem('user_theme') || 'lavender';
+            document.documentElement.className = 'theme-' + theme;
+        })();
+    </script>
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Социальный проект «Моральный скотч» — Твое безопасное пространство</title>
     
+    <!-- Google Fonts: Comfortaa & Nunito -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@500;600;700&family=Nunito:ital,wght@0,400;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     
-    <!-- Google Fonts: Nunito & Comfortaa -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@500;600;700&family=Nunito:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-    
-    <!-- Font Awesome Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
+    <!-- Tailwind Configuration -->
     <script>
         tailwind.config = {
             darkMode: 'class',
             theme: {
                 extend: {
                     fontFamily: {
-                        sans: ['"Nunito"', 'sans-serif'],
-                        heading: ['"Comfortaa"', 'cursive', 'sans-serif'],
+                        heading: ['Comfortaa', 'cursive'],
+                        body: ['Nunito', 'sans-serif'],
                     },
                     colors: {
                         m3: {
-                            primary: 'var(--m3-primary)',
-                            onPrimary: 'var(--m3-on-primary)',
-                            primaryContainer: 'var(--m3-primary-container)',
-                            onPrimaryContainer: 'var(--m3-on-primary-container)',
-                            secondary: 'var(--m3-secondary)',
-                            secondaryContainer: 'var(--m3-secondary-container)',
-                            onSecondaryContainer: 'var(--m3-on-secondary-container)',
-                            surface: 'var(--m3-surface)',
-                            surfaceVariant: 'var(--m3-surface-variant)',
-                            onSurface: 'var(--m3-on-surface)',
-                            onSurfaceVariant: 'var(--m3-on-surface-variant)',
-                            outline: 'var(--m3-outline)',
-                            error: '#ba1a1a',
-                            errorContainer: '#ffdad6',
-                            onErrorContainer: '#410002',
+                            primary: 'var(--md-primary)',
+                            onPrimary: 'var(--md-on-primary)',
+                            primaryContainer: 'var(--md-primary-container)',
+                            onPrimaryContainer: 'var(--md-on-primary-container)',
+                            surface: 'var(--md-surface)',
+                            onSurface: 'var(--md-on-surface)',
+                            surfaceVariant: 'var(--md-surface-variant)',
+                            onSurfaceVariant: 'var(--md-on-surface-variant)',
+                            outline: 'var(--md-outline)',
+                            bg: 'var(--md-bg)',
+                            cardBg: 'var(--md-card-bg)',
                         }
                     },
                     borderRadius: {
-                        'm3-sm': '12px',
-                        'm3-md': '18px',
-                        'm3-lg': '24px',
-                        'm3-xl': '32px',
-                        'm3-full': '9999px',
+                        '3xl': '28px',
+                        '4xl': '36px',
                     },
                     boxShadow: {
-                        'm3-1': '0px 1px 3px 1px rgba(0, 0, 0, 0.08), 0px 1px 2px 0px rgba(0, 0, 0, 0.12)',
-                        'm3-2': '0px 2px 8px 2px rgba(0, 0, 0, 0.10), 0px 1px 4px 0px rgba(0, 0, 0, 0.15)',
-                        'm3-3': '0px 4px 12px 4px rgba(0, 0, 0, 0.12), 0px 2px 6px 0px rgba(0, 0, 0, 0.20)',
+                        'm3-sm': '0 2px 8px -2px rgba(0, 0, 0, 0.08), 0 1px 4px -1px rgba(0, 0, 0, 0.04)',
+                        'm3-md': '0 8px 24px -4px rgba(0, 0, 0, 0.12), 0 4px 12px -2px rgba(0, 0, 0, 0.06)',
                     }
                 }
             }
         }
     </script>
 
-    <style>
-        /* Lavender / Iris Palette (Default: ?theme=lavender) */
-        :root, .theme-lavender {
-            --m3-primary: #6750a4;
-            --m3-on-primary: #ffffff;
-            --m3-primary-container: #eaddff;
-            --m3-on-primary-container: #21005d;
-            --m3-secondary: #625b71;
-            --m3-secondary-container: #e8def8;
-            --m3-on-secondary-container: #1d192b;
-            --m3-surface: #fdf8ff;
-            --m3-surface-variant: #e7e0ec;
-            --m3-on-surface: #1c1b1f;
-            --m3-on-surface-variant: #49454f;
-            --m3-outline: #79747e;
-        }
-
-        /* Dark Theme Option (?theme=dark) */
-        .theme-dark {
-            --m3-primary: #d0bcff;
-            --m3-on-primary: #381e72;
-            --m3-primary-container: #4f378b;
-            --m3-on-primary-container: #eaddff;
-            --m3-secondary: #ccc2dc;
-            --m3-secondary-container: #4a4458;
-            --m3-on-secondary-container: #e8def8;
-            --m3-surface: #141218;
-            --m3-surface-variant: #49454f;
-            --m3-on-surface: #e6e0e9;
-            --m3-on-surface-variant: #cac4d0;
-            --m3-outline: #938f99;
-        }
-
-        /* Warm Coral Theme Option (?theme=coral) */
-        .theme-coral {
-            --m3-primary: #9c4323;
-            --m3-on-primary: #ffffff;
-            --m3-primary-container: #ffdbd1;
-            --m3-on-primary-container: #3b0900;
-            --m3-secondary: #77574e;
-            --m3-secondary-container: #ffdad2;
-            --m3-on-secondary-container: #2c150f;
-            --m3-surface: #fff8f6;
-            --m3-surface-variant: #f5ded8;
-            --m3-on-surface: #201a18;
-            --m3-on-surface-variant: #53433f;
-            --m3-outline: #85736e;
-        }
-
-        /* Material You Card & Button Hover Physics */
-        .m3-card {
-            transition: transform 0.28s cubic-bezier(0.2, 0, 0, 1), box-shadow 0.28s cubic-bezier(0.2, 0, 0, 1), background-color 0.28s ease;
-        }
-        .m3-card:hover {
-            transform: translateY(-4px);
-        }
-        .m3-btn {
-            transition: all 0.22s cubic-bezier(0.2, 0, 0, 1);
-        }
-        .m3-btn:active {
-            transform: scale(0.96);
-        }
-    </style>
+    <!-- Подключение общего внешнего файла стилей -->
+    <link rel="stylesheet" href="/styles.css">
 </head>
-<body class="bg-m3-surface text-m3-onSurface min-h-screen flex flex-col font-sans transition-colors duration-300 antialiased selection:bg-m3-primaryContainer selection:text-m3-onPrimaryContainer">
+<body class="min-h-screen flex flex-col justify-between selection:bg-m3-primary selection:text-white">
 
-    <!-- Privacy & Panic Exit Top Bar -->
-    <div class="bg-m3-surfaceVariant/90 text-m3-onSurfaceVariant px-4 py-3 border-b border-m3-outline/20 sticky top-0 z-50 backdrop-blur-md">
-        <div class="max-w-6xl mx-auto flex flex-wrap items-center justify-between gap-3">
-            <div class="flex items-center space-x-2 text-xs sm:text-sm font-semibold">
-                <i class="fa-solid fa-user-shield text-m3-primary text-base"></i>
-                <span>Мы не сохраняем никакой информации</span>
-                <span class="hidden md:inline font-normal text-m3-onSurfaceVariant/80">— твоя сессия 100% анонимна</span>
-            </div>
+    <!-- Основная шапка -->
+    <header class="sticky top-0 z-40 bg-m3-surface/90 backdrop-blur-md border-b border-m3-outline/10 transition-colors">
+        <div class="max-w-6xl mx-auto px-4 py-3 sm:py-4 flex items-center justify-between gap-4">
             
-            <div class="flex items-center space-x-3">
-                <span class="hidden sm:inline-flex items-center text-xs bg-m3-surface px-2.5 py-1 rounded-m3-full border border-m3-outline/30 font-bold tracking-wide">
-                    Клавиша <kbd class="mx-1 px-1.5 py-0.5 bg-m3-surfaceVariant rounded text-m3-primary font-extrabold">Esc</kbd>
-                </span>
-                <a href="https://ya.ru" id="panicExitBtn" 
-                   title="Мгновенно открыть Яндекс и очистить историю"
-                   class="inline-flex items-center space-x-2 bg-m3-error text-white text-xs sm:text-sm px-4 py-2 rounded-m3-full font-bold hover:bg-red-700 transition shadow-m3-1">
-                    <i class="fa-solid fa-arrow-right-from-bracket"></i>
-                    <span>Скрыть страницу (ya.ru)</span>
-                </a>
+            <!-- Логотип и Название -->
+            <div class="flex items-center gap-3 cursor-pointer group" onclick="switchSection('home')">
+                <div class="w-10 h-10 sm:w-12 sm:h-12 dynamic-logo shrink-0 transition-transform group-hover:scale-105" title="Логотип «Моральный скотч»"></div>
+                <div>
+                    <h1 class="text-lg sm:text-xl font-bold tracking-tight text-m3-onSurface leading-tight font-heading">
+                        Моральный скотч
+                    </h1>
+                    <p class="text-xs text-m3-onSurfaceVariant font-medium hidden sm:block">
+                        Социальный проект для молодых авторов
+                    </p>
+                </div>
             </div>
-        </div>
-    </div>
 
-    <!-- Main Header -->
-    <header class="max-w-6xl w-full mx-auto px-4 pt-6 pb-4 flex flex-col sm:flex-row items-center justify-between gap-4">
-        <div class="flex items-center space-x-3.5 cursor-pointer group" onclick="switchSection('home')">
-            <div class="w-14 h-14 rounded-m3-xl bg-m3-primaryContainer text-m3-onPrimaryContainer flex items-center justify-center text-2xl shadow-m3-1 group-hover:scale-105 transition-transform">
-                <i class="fa-solid fa-heart-pulse text-m3-primary"></i>
-            </div>
-            <div>
-                <span class="text-xs font-extrabold uppercase tracking-widest text-m3-primary font-heading">Социальный проект</span>
-                <h1 class="text-2xl sm:text-3xl font-black tracking-tight text-m3-onSurface font-heading">Моральный скотч</h1>
-            </div>
-        </div>
+            <!-- Правый блок: выбор темы и экстренные контакты -->
+            <div class="flex items-center gap-3">
+                <button onclick="switchSection('hotlines')" class="hidden sm:flex items-center gap-1.5 text-xs sm:text-sm px-3.5 py-1.5 rounded-full font-bold text-m3-onSurfaceVariant bg-m3-surfaceVariant/60 hover:bg-m3-surfaceVariant border border-m3-outline/20 transition-all">
+                    <i class="fa-solid fa-phone-volume text-m3-primary"></i>
+                    <span>Помощь 24/7</span>
+                </button>
 
-        <!-- Dynamic Theme Color Selectors (Lavender, Dark, Coral) -->
-        <div class="flex items-center space-x-3 bg-m3-surfaceVariant/60 p-2 rounded-m3-full border border-m3-outline/20 shadow-sm">
-            <span class="text-xs font-bold text-m3-onSurfaceVariant/70 pl-2 hidden sm:inline">Тема:</span>
-            <div class="flex items-center space-x-1.5">
-                <button id="theme-btn-lavender" onclick="setTheme('lavender')" title="Лаванда (?theme=lavender)" class="w-7 h-7 rounded-full bg-[#6750a4] border-2 border-white shadow-sm hover:scale-110 transition focus:outline-none"></button>
-                <button id="theme-btn-dark" onclick="setTheme('dark')" title="Темная (?theme=dark)" class="w-7 h-7 rounded-full bg-[#1c1b1f] border-2 border-white shadow-sm hover:scale-110 transition focus:outline-none"></button>
-                <button id="theme-btn-coral" onclick="setTheme('coral')" title="Коралл (?theme=coral)" class="w-7 h-7 rounded-full bg-[#9c4323] border-2 border-white shadow-sm hover:scale-110 transition focus:outline-none"></button>
+                <!-- Переключатель темы -->
+                <div class="flex items-center gap-1.5 bg-m3-surfaceVariant/50 p-1.5 rounded-full border border-m3-outline/20">
+                    <button onclick="setTheme('lavender')" id="btn-theme-lavender" class="w-6 h-6 rounded-full bg-[#6750A4] border-2 border-white/80 hover:scale-110 transition-transform shadow-sm" title="Тема: Лаванда"></button>
+                    <button onclick="setTheme('dark')" id="btn-theme-dark" class="w-6 h-6 rounded-full bg-[#1C1B1F] border-2 border-white/80 hover:scale-110 transition-transform shadow-sm" title="Тема: Тёмная"></button>
+                    <button onclick="setTheme('coral')" id="btn-theme-coral" class="w-6 h-6 rounded-full bg-[#984061] border-2 border-white/80 hover:scale-110 transition-transform shadow-sm" title="Тема: Коралл"></button>
+                </div>
             </div>
-            <div class="h-5 w-px bg-m3-outline/30"></div>
-            <button onclick="switchSection('hotlines')" class="text-xs sm:text-sm px-3.5 py-1.5 rounded-m3-full font-bold text-m3-onSurfaceVariant hover:bg-m3-surface transition flex items-center space-x-1.5">
-                <i class="fa-solid fa-phone-volume text-m3-primary"></i>
-                <span>Помощь 24/7</span>
-            </button>
         </div>
     </header>
 
-    <main class="flex-grow max-w-6xl w-full mx-auto px-4 py-4 sm:py-8 flex flex-col justify-center">
+    <main class="max-w-6xl mx-auto px-4 py-6 sm:py-10 flex-grow w-full flex flex-col justify-center">
 
         <!-- SECTION 1: HOME / CHOICE HUB -->
-        <section id="section-home" class="space-y-8 animate-fadeIn">
+        <section id="section-home" class="space-y-8 animate-fade-in">
             
             <!-- Hero Title & Tagline -->
             <div class="text-center max-w-3xl mx-auto space-y-4">
-                <div class="inline-flex items-center space-x-2 bg-m3-secondaryContainer text-m3-onSecondaryContainer px-4 py-2 rounded-m3-full text-xs sm:text-sm font-bold">
-                    <i class="fa-solid fa-shield-heart text-m3-secondary"></i>
+                <div class="inline-flex items-center gap-2 bg-m3-primaryContainer text-m3-onPrimaryContainer px-4 py-1.5 rounded-full text-xs sm:text-sm font-bold">
+                    <i class="fa-solid fa-shield-heart text-m3-primary"></i>
                     <span>Здесь ты в безопасности</span>
                 </div>
                 
-                <h2 class="text-3xl sm:text-5xl font-black tracking-tight text-m3-onSurface font-heading leading-tight">
+                <h2 class="text-2xl sm:text-4xl font-bold tracking-tight text-m3-onSurface leading-tight font-heading">
                     Каждый из нас может оказаться в непростой ситуации
                 </h2>
                 
-                <p class="text-base sm:text-xl text-m3-onSurfaceVariant max-w-2xl mx-auto font-medium leading-relaxed">
+                <p class="text-sm sm:text-base text-m3-onSurfaceVariant max-w-2xl mx-auto font-medium leading-relaxed">
                     Здесь нет осуждения и давления. Мы рядом, чтобы помочь найти безопасный выход и вернуть чувство спокойствия. Выбери то, что ближе тебе прямо сейчас:
                 </p>
             </div>
@@ -203,24 +127,22 @@
             <div class="grid md:grid-cols-2 gap-6 pt-2 max-w-4xl mx-auto">
                 
                 <!-- CARD 1: VICTIM / TARGET WITH EXTERNAL REDIRECT -->
-                <div onclick="redirectToHeavy()" class="m3-card bg-m3-primaryContainer text-m3-onPrimaryContainer rounded-m3-xl p-6 sm:p-9 flex flex-col justify-between border border-m3-outline/10 shadow-m3-1 relative overflow-hidden group cursor-pointer hover:border-m3-primary/50 transition">
-                    <div class="absolute -right-8 -bottom-8 w-40 h-40 bg-m3-primary/10 rounded-full blur-2xl group-hover:scale-150 transition-transform duration-500"></div>
-                    
+                <div onclick="redirectToHeavy()" class="bg-m3-cardBg rounded-4xl p-6 sm:p-8 flex flex-col justify-between border border-m3-outline/15 shadow-m3-sm hover:shadow-m3-md transition-all duration-300 transform hover:-translate-y-1 cursor-pointer group relative overflow-hidden">
                     <div class="space-y-4 relative z-10">
-                        <div class="w-16 h-16 rounded-m3-lg bg-m3-surface text-m3-primary flex items-center justify-center text-3xl shadow-sm">
+                        <div class="w-14 h-14 rounded-2xl bg-m3-primaryContainer text-m3-primary flex items-center justify-center text-2xl shadow-sm">
                             <i class="fa-solid fa-hand-holding-heart"></i>
                         </div>
                         <div>
                             <span class="text-xs font-extrabold uppercase tracking-widest text-m3-primary font-heading">Мне нужна поддержка</span>
-                            <h3 class="text-2xl sm:text-3xl font-black mt-1 text-m3-onPrimaryContainer font-heading">Мне тяжело / Меня обижают</h3>
+                            <h3 class="text-xl sm:text-2xl font-bold mt-1 text-m3-onSurface font-heading">Мне тяжело / Меня обижают</h3>
                         </div>
-                        <p class="text-sm sm:text-base text-m3-onPrimaryContainer/85 leading-relaxed font-medium">
+                        <p class="text-xs sm:text-sm text-m3-onSurfaceVariant leading-relaxed font-medium">
                             Если ты столкнулся с давлением, насмешками, кибербуллингом или одиночеством. Перейди в этот раздел, чтобы получить инструкции и безопасный план действий.
                         </p>
                     </div>
 
-                    <div class="pt-8 relative z-10">
-                        <button onclick="event.stopPropagation(); redirectToHeavy();" class="m3-btn w-full bg-m3-primary text-m3-onPrimary hover:opacity-95 font-bold py-4 px-6 rounded-m3-full flex items-center justify-center space-x-3 shadow-m3-2 text-base">
+                    <div class="pt-6 relative z-10">
+                        <button onclick="event.stopPropagation(); redirectToHeavy();" class="w-full bg-m3-primary text-m3-onPrimary hover:opacity-95 font-bold py-3.5 px-6 rounded-full flex items-center justify-center gap-3 shadow-m3-sm text-sm transition-all active:scale-95">
                             <span>Найти поддержку и совет</span>
                             <i class="fa-solid fa-arrow-right"></i>
                         </button>
@@ -228,24 +150,22 @@
                 </div>
 
                 <!-- CARD 2: AGGRESSOR / BULLY LOOKING TO CHANGE WITH REDIRECT TO VYHOD/B -->
-                <div onclick="redirectToBully()" class="m3-card bg-m3-secondaryContainer text-m3-onSecondaryContainer rounded-m3-xl p-6 sm:p-9 flex flex-col justify-between border border-m3-outline/10 shadow-m3-1 relative overflow-hidden group cursor-pointer hover:border-m3-secondary/50 transition">
-                    <div class="absolute -right-8 -bottom-8 w-40 h-40 bg-m3-secondary/10 rounded-full blur-2xl group-hover:scale-150 transition-transform duration-500"></div>
-                    
+                <div onclick="redirectToBully()" class="bg-m3-cardBg rounded-4xl p-6 sm:p-8 flex flex-col justify-between border border-m3-outline/15 shadow-m3-sm hover:shadow-m3-md transition-all duration-300 transform hover:-translate-y-1 cursor-pointer group relative overflow-hidden">
                     <div class="space-y-4 relative z-10">
-                        <div class="w-16 h-16 rounded-m3-lg bg-m3-surface text-m3-secondary flex items-center justify-center text-3xl shadow-sm">
+                        <div class="w-14 h-14 rounded-2xl bg-m3-surfaceVariant text-m3-onSurfaceVariant flex items-center justify-center text-2xl shadow-sm">
                             <i class="fa-solid fa-fire-flame-curved"></i>
                         </div>
                         <div>
-                            <span class="text-xs font-extrabold uppercase tracking-widest text-m3-secondary font-heading">Хочу измениться</span>
-                            <h3 class="text-2xl sm:text-3xl font-black mt-1 text-m3-onSecondaryContainer font-heading">Я чувствую злость / Обижаю других</h3>
+                            <span class="text-xs font-extrabold uppercase tracking-widest text-m3-onSurfaceVariant font-heading">Хочу измениться</span>
+                            <h3 class="text-xl sm:text-2xl font-bold mt-1 text-m3-onSurface font-heading">Я чувствую злость / Обижаю других</h3>
                         </div>
-                        <p class="text-sm sm:text-base text-m3-onSecondaryContainer/85 leading-relaxed font-medium">
+                        <p class="text-xs sm:text-sm text-m3-onSurfaceVariant leading-relaxed font-medium">
                             Если эмоции выходят из-под контроля, хочется срываться на других или ты сожалеешь о содеянном. Перейди в этот раздел, чтобы разобраться в себе.
                         </p>
                     </div>
 
-                    <div class="pt-8 relative z-10">
-                        <button onclick="event.stopPropagation(); redirectToBully();" class="m3-btn w-full bg-m3-secondary text-white hover:opacity-95 font-bold py-4 px-6 rounded-m3-full flex items-center justify-center space-x-3 shadow-m3-2 text-base">
+                    <div class="pt-6 relative z-10">
+                        <button onclick="event.stopPropagation(); redirectToBully();" class="w-full bg-m3-surfaceVariant text-m3-onSurface hover:bg-m3-outline/20 font-bold py-3.5 px-6 rounded-full flex items-center justify-center gap-3 border border-m3-outline/20 text-sm transition-all active:scale-95">
                             <span>Разобраться в себе</span>
                             <i class="fa-solid fa-compass"></i>
                         </button>
@@ -255,15 +175,15 @@
             </div>
 
             <!-- Quick Hotline Pill Bar -->
-            <div class="max-w-2xl mx-auto bg-m3-surfaceVariant/60 border border-m3-outline/20 rounded-m3-xl p-5 sm:p-6 text-center space-y-3 shadow-sm">
-                <div class="flex items-center justify-center space-x-2 text-xs font-black text-m3-primary tracking-widest uppercase font-heading">
+            <div class="max-w-2xl mx-auto bg-m3-cardBg border border-m3-outline/15 rounded-3xl p-5 sm:p-6 text-center space-y-3 shadow-m3-sm">
+                <div class="flex items-center justify-center gap-2 text-xs font-black text-m3-primary tracking-widest uppercase font-heading">
                     <i class="fa-solid fa-clock"></i>
                     <span>Круглосуточно • Бесплатно • Анонимно</span>
                 </div>
                 <div class="flex flex-col sm:flex-row items-center justify-center gap-3">
-                    <div class="text-sm sm:text-base font-bold">Детский телефон доверия:</div>
-                    <a href="tel:88002000122" class="inline-flex items-center space-x-2.5 bg-m3-primary text-m3-onPrimary px-5 py-2.5 rounded-m3-full font-black text-lg hover:shadow-m3-2 transition">
-                        <i class="fa-solid fa-phone"></i>
+                    <div class="text-sm font-bold text-m3-onSurface">Детский телефон доверия:</div>
+                    <a href="tel:88002000122" class="inline-flex items-center gap-2.5 bg-m3-primary text-m3-onPrimary px-5 py-2 rounded-full font-bold text-base hover:shadow-m3-sm transition-all">
+                        <i class="fa-solid fa-phone text-sm"></i>
                         <span>8 800 2000 122</span>
                     </a>
                 </div>
@@ -272,19 +192,19 @@
         </section>
 
         <!-- SECTION 2: HOTLINES & CONTACTS -->
-        <section id="section-hotlines" class="hidden space-y-6 animate-fadeIn">
+        <section id="section-hotlines" class="hidden space-y-6 animate-fade-in">
             
             <!-- Navigation Back Button & Badge -->
             <div class="flex items-center justify-between">
-                <button onclick="switchSection('home')" class="inline-flex items-center space-x-2 text-sm font-bold text-m3-primary bg-m3-primaryContainer/60 hover:bg-m3-primaryContainer px-4 py-2.5 rounded-m3-full transition">
+                <button onclick="switchSection('home')" class="inline-flex items-center gap-2 text-xs sm:text-sm font-bold text-m3-primary bg-m3-primaryContainer/60 hover:bg-m3-primaryContainer px-4 py-2 rounded-full transition-all">
                     <i class="fa-solid fa-arrow-left"></i>
                     <span>На главную</span>
                 </button>
-                <span class="text-xs bg-m3-surfaceVariant text-m3-onSurfaceVariant px-3.5 py-1.5 rounded-m3-full font-bold">Контакты 24/7</span>
+                <span class="text-xs bg-m3-surfaceVariant text-m3-onSurfaceVariant px-3.5 py-1.5 rounded-full font-bold">Контакты 24/7</span>
             </div>
 
             <div class="text-center space-y-2">
-                <h2 class="text-3xl sm:text-4xl font-black font-heading">Горячие линии помощи</h2>
+                <h2 class="text-2xl sm:text-3xl font-bold font-heading text-m3-onSurface">Горячие линии помощи</h2>
                 <p class="text-xs sm:text-sm text-m3-onSurfaceVariant font-medium max-w-lg mx-auto">
                     Все звонки абсолютно бесплатны с любых мобильных и городских телефонов на территории РФ. Разговор не записывается.
                 </p>
@@ -293,19 +213,19 @@
             <!-- Hotline Cards Grid -->
             <div class="grid md:grid-cols-2 gap-5 pt-2">
                 <!-- Hotline 1 -->
-                <div class="bg-m3-surface p-7 rounded-m3-xl border border-m3-outline/30 shadow-m3-1 flex flex-col justify-between space-y-5">
+                <div class="bg-m3-cardBg p-6 sm:p-7 rounded-3xl border border-m3-outline/15 shadow-m3-sm flex flex-col justify-between space-y-5">
                     <div class="space-y-3">
-                        <div class="inline-block bg-emerald-100 text-emerald-800 text-xs px-3 py-1 rounded-full font-extrabold">
+                        <div class="inline-block bg-emerald-100 text-emerald-800 text-[11px] px-3 py-1 rounded-full font-extrabold">
                             Круглосуточно • Бесплатно • Анонимно
                         </div>
-                        <h3 class="text-2xl font-black text-m3-onSurface font-heading">Детский телефон доверия</h3>
+                        <h3 class="text-xl sm:text-2xl font-bold text-m3-onSurface font-heading">Детский телефон доверия</h3>
                         <p class="text-xs sm:text-sm text-m3-onSurfaceVariant font-medium leading-relaxed">
                             Единый общероссийский номер для детей, подростков и их родителей. Опытные психологи выслушают без осуждения и помогут найти безопасный выход.
                         </p>
                     </div>
                     <div class="flex flex-wrap items-center justify-between gap-3 pt-3 border-t border-m3-outline/15">
-                        <span class="text-2xl sm:text-3xl font-black tracking-tight text-m3-primary font-heading">8 800 2000 122</span>
-                        <a href="tel:88002000122" class="bg-m3-primary text-m3-onPrimary px-5 py-2.5 rounded-m3-full font-bold text-sm hover:shadow-m3-2 transition inline-flex items-center space-x-2">
+                        <span class="text-xl sm:text-2xl font-bold tracking-tight text-m3-primary font-heading">8 800 2000 122</span>
+                        <a href="tel:88002000122" class="bg-m3-primary text-m3-onPrimary px-4 py-2 rounded-full font-bold text-xs sm:text-sm hover:shadow-m3-sm transition-all inline-flex items-center gap-2">
                             <i class="fa-solid fa-phone"></i>
                             <span>Позвонить</span>
                         </a>
@@ -313,19 +233,19 @@
                 </div>
 
                 <!-- Hotline 2 -->
-                <div class="bg-m3-surface p-7 rounded-m3-xl border border-m3-outline/30 shadow-m3-1 flex flex-col justify-between space-y-5">
+                <div class="bg-m3-cardBg p-6 sm:p-7 rounded-3xl border border-m3-outline/15 shadow-m3-sm flex flex-col justify-between space-y-5">
                     <div class="space-y-3">
-                        <div class="inline-block bg-sky-100 text-sky-800 text-xs px-3 py-1 rounded-full font-extrabold">
+                        <div class="inline-block bg-sky-100 text-sky-800 text-[11px] px-3 py-1 rounded-full font-extrabold">
                             Помощь при кибербуллинге
                         </div>
-                        <h3 class="text-2xl font-black text-m3-onSurface font-heading">Горячая линия «Дети Онлайн»</h3>
+                        <h3 class="text-xl sm:text-2xl font-bold text-m3-onSurface font-heading">Горячая линия «Дети Онлайн»</h3>
                         <p class="text-xs sm:text-sm text-m3-onSurfaceVariant font-medium leading-relaxed">
                             Психологическая и экспертная помощь при травле в соцсетях, шантаже, взломах аккаунтов или преследовании в интернете.
                         </p>
                     </div>
                     <div class="flex flex-wrap items-center justify-between gap-3 pt-3 border-t border-m3-outline/15">
-                        <span class="text-2xl sm:text-3xl font-black tracking-tight text-m3-primary font-heading">8 800 250 0015</span>
-                        <a href="tel:88002500015" class="bg-m3-primary text-m3-onPrimary px-5 py-2.5 rounded-m3-full font-bold text-sm hover:shadow-m3-2 transition inline-flex items-center space-x-2">
+                        <span class="text-xl sm:text-2xl font-bold tracking-tight text-m3-primary font-heading">8 800 250 0015</span>
+                        <a href="tel:88002500015" class="bg-m3-primary text-m3-onPrimary px-4 py-2 rounded-full font-bold text-xs sm:text-sm hover:shadow-m3-sm transition-all inline-flex items-center gap-2">
                             <i class="fa-solid fa-phone"></i>
                             <span>Позвонить</span>
                         </a>
@@ -334,8 +254,8 @@
             </div>
 
             <!-- Emergency Warning Note -->
-            <div class="bg-m3-errorContainer/60 p-5 rounded-m3-lg border border-m3-error/30 text-xs sm:text-sm text-m3-onErrorContainer flex items-start space-x-3.5">
-                <i class="fa-solid fa-triangle-exclamation text-m3-error text-xl mt-0.5"></i>
+            <div class="bg-red-500/10 p-4 sm:p-5 rounded-2xl border border-red-500/20 text-xs sm:text-sm text-m3-onSurface flex items-start gap-3.5">
+                <i class="fa-solid fa-triangle-exclamation text-red-500 text-lg mt-0.5"></i>
                 <div class="font-medium leading-relaxed">
                     <strong>Если существует прямая угроза жизни или физическому здоровью:</strong> Пожалуйста, незамедлительно обратись к сотрудникам полиции (<strong>102 / 112</strong>) или в скорую помощь (<strong>103</strong>).
                 </div>
@@ -345,36 +265,28 @@
     </main>
 
     <!-- Footer -->
-    <footer class="mt-auto border-t border-m3-outline/20 bg-m3-surfaceVariant/30 py-6 text-center text-xs text-m3-onSurfaceVariant">
-        <div class="max-w-6xl mx-auto px-4 space-y-2">
-            <p class="font-extrabold text-m3-onSurface font-heading">Социальный проект «Моральный скотч» © 2026</p>
-            <p class="font-medium">Безопасная гавань и психоэмоциональная поддержка для подростков. Мы не собираем и не храним личные данные.</p>
-            <p class="text-[11px] opacity-75 font-semibold">Нажми <kbd class="px-1.5 py-0.5 bg-m3-surface rounded border border-m3-outline/30 text-m3-primary">Esc</kbd> в любой момент для экстренного скрытия страницы.</p>
+    <footer class="bg-m3-surfaceVariant/40 border-t border-m3-outline/15 py-6 px-4 text-center text-xs sm:text-sm text-m3-onSurfaceVariant">
+        <div class="max-w-6xl mx-auto space-y-2">
+            <div class="flex justify-center items-center gap-2">
+                <div class="w-5 h-5 dynamic-logo"></div>
+                <span class="font-bold font-heading text-m3-onSurface">Социальный проект «Моральный скотч»</span>
+            </div>
+            <p class="opacity-70 text-[11px]">Все материалы создаются в образовательных и гуманитарных целях.</p>
         </div>
     </footer>
 
-    <!-- Interactive Material Toast Notification -->
-    <div id="toast" class="fixed bottom-6 right-6 bg-m3-onSurface text-m3-surface text-xs sm:text-sm font-bold px-5 py-3 rounded-m3-full shadow-m3-3 transform translate-y-20 opacity-0 transition-all duration-300 pointer-events-none z-50 flex items-center space-x-2">
-        <i class="fa-solid fa-check text-emerald-400"></i>
-        <span id="toastMessage">Сообщение</span>
-    </div>
-
     <script>
-        // Global Theme State: 'lavender' | 'dark' | 'coral'
         let currentTheme = 'lavender';
 
-        // Redirect handler for "Мне тяжело" section
+        // Redirect handlers with active theme preservation
         function redirectToHeavy() {
             const baseUrl = 'https://moraltape.github.io/instr/joint/vyhod/a';
-            const targetUrl = `${baseUrl}?theme=${encodeURIComponent(currentTheme)}`;
-            window.location.href = targetUrl;
+            window.location.href = `${baseUrl}?theme=${encodeURIComponent(currentTheme)}`;
         }
 
-        // Redirect handler for "Я чувствую злость / Обижаю других" (bully) section
         function redirectToBully() {
             const baseUrl = 'https://moraltape.github.io/instr/joint/vyhod/b';
-            const targetUrl = `${baseUrl}?theme=${encodeURIComponent(currentTheme)}`;
-            window.location.href = targetUrl;
+            window.location.href = `${baseUrl}?theme=${encodeURIComponent(currentTheme)}`;
         }
 
         // Section Navigation
@@ -393,83 +305,35 @@
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        // Material You Dynamic Theme Switcher with ?theme= Support & URL Address Sync
-        function setTheme(themeName, updateUrl = true) {
-            document.body.classList.remove('theme-lavender', 'theme-dark', 'theme-coral');
-            
-            if (['lavender', 'dark', 'coral'].includes(themeName)) {
-                currentTheme = themeName;
-            } else {
-                currentTheme = 'lavender';
-            }
+        // Theme Manager
+        function setTheme(themeName) {
+            const validThemes = ['lavender', 'dark', 'coral'];
+            if (!validThemes.includes(themeName)) return;
 
-            if (currentTheme !== 'lavender') {
-                document.body.classList.add(`theme-${currentTheme}`);
-            }
+            currentTheme = themeName;
+            document.documentElement.className = 'theme-' + themeName;
+            localStorage.setItem('user_theme', themeName);
 
             try {
-                localStorage.setItem('moral_tape_theme', currentTheme);
-            } catch (e) {}
-
-            if (updateUrl && window.history && window.history.replaceState) {
                 const url = new URL(window.location.href);
-                url.searchParams.set('theme', currentTheme);
-                window.history.replaceState(null, '', url.toString());
-            }
-
-            let themeLabel = 'Лаванда';
-            if (currentTheme === 'dark') themeLabel = 'Темная';
-            if (currentTheme === 'coral') themeLabel = 'Коралл';
-
-            showToast(`Тема изменена: ${themeLabel}`);
+                url.searchParams.set('theme', themeName);
+                window.history.replaceState({}, '', url.toString());
+            } catch (e) {}
         }
 
-        // Parse theme URL parameter or LocalStorage on page load
-        function initThemeFromURL() {
+        document.addEventListener('DOMContentLoaded', () => {
             const urlParams = new URLSearchParams(window.location.search);
             const themeParam = urlParams.get('theme');
-            let savedTheme = null;
-            try {
-                savedTheme = localStorage.getItem('moral_tape_theme');
-            } catch (e) {}
-
-            if (themeParam && ['lavender', 'dark', 'coral'].includes(themeParam.toLowerCase())) {
-                setTheme(themeParam.toLowerCase(), false);
+            const savedTheme = localStorage.getItem('user_theme');
+            
+            if (themeParam && ['lavender', 'dark', 'coral'].includes(themeParam)) {
+                setTheme(themeParam);
             } else if (savedTheme && ['lavender', 'dark', 'coral'].includes(savedTheme)) {
-                setTheme(savedTheme, true);
+                setTheme(savedTheme);
             } else {
-                setTheme('lavender', true);
-            }
-        }
-
-        // Panic Exit Keyboard Event (Esc Key)
-        window.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape' || e.keyCode === 27) {
-                document.body.innerHTML = '';
-                window.location.href = 'https://ya.ru';
+                setTheme('lavender');
             }
         });
-
-        // Toast Popup Trigger
-        function showToast(message) {
-            const toast = document.getElementById('toast');
-            const toastMessage = document.getElementById('toastMessage');
-            if (!toast || !toastMessage) return;
-            
-            toastMessage.innerText = message;
-            toast.classList.remove('translate-y-20', 'opacity-0');
-            toast.classList.add('translate-y-0', 'opacity-100');
-            
-            setTimeout(() => {
-                toast.classList.remove('translate-y-0', 'opacity-100');
-                toast.classList.add('translate-y-20', 'opacity-0');
-            }, 2600);
-        }
-
-        // On document load initialization
-        window.onload = function() {
-            initThemeFromURL();
-        };
     </script>
 </body>
 </html>
