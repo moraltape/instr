@@ -1,195 +1,221 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="ru" class="theme-lavender">
 <head>
     <meta charset="UTF-8">
+    <!-- Скрипт предотвращения мигания темы при загрузке (Anti-Flicker) -->
+    <script>
+        (function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const theme = urlParams.get('theme') || localStorage.getItem('user_theme') || 'lavender';
+            document.documentElement.className = 'theme-' + theme;
+        })();
+    </script>
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Полезные материалы — Противодействие буллингу</title>
-    
-    <!-- Подключение шрифтов -->
+    <title>Полезные материалы — Моральный скотч</title>
+
+    <!-- Google Fonts: Comfortaa & Nunito -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@500;700&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@500;600;700&family=Nunito:ital,wght@0,400;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
     
-    <!-- Tailwind CSS CDN (для сетки и быстрого верстки) -->
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     
-    <!-- Иконки Lucide -->
-    <script src="https://unpkg.com/lucide@latest"></script>
-    
-    <!-- Общий CSS-файл проекта -->
+    <!-- Tailwind Configuration -->
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        heading: ['Comfortaa', 'cursive'],
+                        body: ['Nunito', 'sans-serif'],
+                    },
+                    colors: {
+                        m3: {
+                            primary: 'var(--md-primary)',
+                            onPrimary: 'var(--md-on-primary)',
+                            primaryContainer: 'var(--md-primary-container)',
+                            onPrimaryContainer: 'var(--md-on-primary-container)',
+                            surface: 'var(--md-surface)',
+                            onSurface: 'var(--md-on-surface)',
+                            surfaceVariant: 'var(--md-surface-variant)',
+                            onSurfaceVariant: 'var(--md-on-surface-variant)',
+                            outline: 'var(--md-outline)',
+                            bg: 'var(--md-bg)',
+                            cardBg: 'var(--md-card-bg)',
+                        }
+                    },
+                    borderRadius: {
+                        '3xl': '28px',
+                        '4xl': '36px',
+                    },
+                    boxShadow: {
+                        'm3-sm': '0 2px 8px -2px rgba(0, 0, 0, 0.08), 0 1px 4px -1px rgba(0, 0, 0, 0.04)',
+                        'm3-md': '0 8px 24px -4px rgba(0, 0, 0, 0.12), 0 4px 12px -2px rgba(0, 0, 0, 0.06)',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Подключение общего внешнего файла стилей -->
     <link rel="stylesheet" href="styles.css">
-    
-    <style>
-        /* Дополнительные вспомогательные стили для карточек материалов */
-        .resource-card {
-            background-color: var(--md-card-bg);
-            border: 1px solid var(--md-surface-variant);
-            border-radius: 1.25rem;
-            transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
-        }
-
-        .resource-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 12px 24px -6px rgba(0, 0, 0, 0.08);
-            border-color: var(--md-primary);
-        }
-
-        .badge-category {
-            background-color: var(--md-primary-container);
-            color: var(--md-on-primary-container);
-        }
-
-        .btn-primary {
-            background-color: var(--md-primary);
-            color: var(--md-on-primary);
-            transition: opacity 0.2s ease;
-        }
-
-        .btn-primary:hover {
-            opacity: 0.9;
-        }
-    </style>
 </head>
-<body class="min-h-screen flex flex-col font-sans">
+<body class="min-h-screen flex flex-col justify-between selection:bg-m3-primary selection:text-white font-body">
 
-    <!-- Панель анонимности и быстрого выхода (Panic Exit Bar) -->
-    <div class="panic-exit-bar sticky top-0 z-50 px-4 py-2 flex justify-between items-center text-sm">
-        <div class="flex items-center gap-2">
-            <i data-lucide="shield-check" class="w-4 h-4 text-emerald-600"></i>
-            <span>Ваше пребывание здесь анонимно</span>
-        </div>
-        <button onclick="window.location.href='https://weather.com'" class="bg-red-600 hover:bg-red-700 text-white font-bold py-1 px-3 rounded-full flex items-center gap-1 text-xs">
-            <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
-            <span>Быстрый уход (Яндекс/Погода)</span>
-        </button>
-    </div>
+    <!-- Основная шапка проекта -->
+    <header class="sticky top-0 z-40 bg-m3-surface border-b border-m3-outline/10 transition-colors">
+        <div class="max-w-6xl mx-auto px-4 py-3 sm:py-4 flex items-center justify-between gap-4">
+            
+            <!-- Переход на главную (Логотип и Название) -->
+            <a href="index.html" class="flex items-center gap-3 group" title="На главную страницу">
+                <div class="w-10 h-10 sm:w-12 sm:h-12 dynamic-logo shrink-0 transition-transform group-hover:scale-105" title="Логотип «Моральный скотч»"></div>
+                <div>
+                    <h1 class="text-lg sm:text-xl font-bold tracking-tight text-m3-onSurface leading-tight font-heading group-hover:opacity-80 transition-opacity">
+                        Моральный скотч
+                    </h1>
+                    <p class="text-xs text-m3-onSurfaceVariant font-medium hidden sm:block">
+                        Социальный проект для молодых авторов
+                    </p>
+                </div>
+            </a>
 
-    <!-- Шапка сайта -->
-    <header class="px-6 py-4 flex justify-between items-center">
-        <div class="flex items-center gap-3">
-            <div class="dynamic-logo w-8 h-8"></div>
-            <a href="#" class="text-xl font-bold font-heading tracking-wide">ВместеПротивБуллинга</a>
+            <!-- Панель переключения тем -->
+            <div class="flex items-center gap-1.5 bg-m3-surfaceVariant/50 p-1.5 rounded-full border border-m3-outline/20">
+                <button onclick="setTheme('lavender')" id="btn-theme-lavender" class="w-6 h-6 rounded-full bg-[#6750A4] border-2 border-white/80 hover:scale-110 transition-transform shadow-sm" title="Тема: Лаванда"></button>
+                <button onclick="setTheme('dark')" id="btn-theme-dark" class="w-6 h-6 rounded-full bg-[#1C1B1F] border-2 border-white/80 hover:scale-110 transition-transform shadow-sm" title="Тема: Тёмная"></button>
+                <button onclick="setTheme('coral')" id="btn-theme-coral" class="w-6 h-6 rounded-full bg-[#984061] border-2 border-white/80 hover:scale-110 transition-transform shadow-sm" title="Тема: Коралл"></button>
+            </div>
         </div>
-        <nav class="hidden md:flex gap-6 text-sm font-semibold">
-            <a href="#" class="hover:underline">Главная</a>
-            <a href="#" class="hover:underline text-[var(--md-primary)]">Материалы</a>
-            <a href="#" class="hover:underline">Помощь</a>
-        </nav>
     </header>
 
-    <!-- Основной контент -->
-    <main class="flex-grow max-w-6xl w-full mx-auto px-4 py-8 animate-fade-in">
+    <!-- Основное содержимое -->
+    <main class="max-w-6xl mx-auto px-4 py-6 sm:py-10 flex-grow w-full space-y-10 animate-fade-in">
         
         <!-- Заголовок страницы -->
-        <section class="text-center mb-12">
-            <h1 class="text-3xl md:text-4xl font-bold mb-3">Полезные материалы и ресурсы</h1>
-            <p class="text-lg opacity-80 max-w-2xl mx-auto">
-                Подборка проверенных сайтов, горячих линий и видеоматериалов, которые помогут разобраться в проблеме буллинга и найти выход.
+        <section class="text-center max-w-3xl mx-auto py-6 sm:py-8 px-4 bg-m3-cardBg rounded-4xl border border-m3-outline/10 shadow-m3-sm transition-colors">
+            <div class="inline-flex items-center gap-2 bg-m3-primaryContainer text-m3-onPrimaryContainer px-4 py-1.5 rounded-full text-xs sm:text-sm font-bold mb-3">
+                <i class="fa-solid fa-bookmark"></i> База знаний
+            </div>
+            <h2 class="text-2xl sm:text-4xl font-bold text-m3-onSurface tracking-tight font-heading mb-3">
+                Полезные материалы
+            </h2>
+            <p class="text-m3-onSurfaceVariant text-sm sm:text-base leading-relaxed">
+                Проверенные ресурсы, горячие линии и медиафайлы для помощи в преодолении буллинга и травли.
             </p>
         </section>
 
         <!-- БЛОК 1: ОБЩИЕ МАТЕРИАЛЫ -->
-        <section class="mb-14">
-            <div class="flex items-center gap-3 mb-6 border-b pb-3 border-[var(--md-surface-variant)]">
-                <i data-lucide="book-open" class="w-6 h-6 text-[var(--md-primary)]"></i>
-                <h2 class="text-2xl font-bold">Общие ресурсы</h2>
+        <section class="space-y-6">
+            <div class="flex items-center gap-3 border-b border-m3-outline/20 pb-3">
+                <div class="w-9 h-9 rounded-full bg-m3-primaryContainer text-m3-primary flex items-center justify-center text-sm font-bold">
+                    <i class="fa-solid fa-globe"></i>
+                </div>
+                <h3 class="text-xl sm:text-2xl font-bold text-m3-onSurface font-heading">
+                    Общие материалы
+                </h3>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                 
-                <!-- Травлинет.рф -->
-                <div class="resource-card card-solid overflow-hidden flex flex-col justify-between">
-                    <div>
-                        <div class="h-44 bg-slate-100 relative overflow-hidden">
-                            <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=600&q=80" alt="Травлинет" class="w-full h-full object-cover">
-                            <span class="badge-category absolute top-3 left-3 text-xs font-semibold px-2.5 py-1 rounded-full">Проект</span>
-                        </div>
-                        <div class="p-5">
-                            <h3 class="text-xl font-bold mb-2">Травли нет</h3>
-                            <p class="text-sm opacity-80 mb-4">Официальный проект помощи детям, родителям и учителям. Инструкции, методологические материалы и поддержка.</p>
-                        </div>
+                <!-- травлинет.рф -->
+                <div class="bg-m3-cardBg rounded-3xl border border-m3-outline/15 shadow-m3-sm hover:shadow-m3-md transition-all duration-300 flex flex-col justify-between overflow-hidden group">
+                    <div class="relative h-44 overflow-hidden bg-m3-surfaceVariant">
+                        <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=600&q=80" alt="Травли нет" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        <span class="absolute top-3 left-3 bg-m3-primary text-m3-onPrimary text-xs font-bold px-3 py-1 rounded-full shadow-sm">Сайт</span>
                     </div>
-                    <div class="p-5 pt-0">
-                        <a href="https://травлинет.рф" target="_blank" rel="noopener noreferrer" class="btn-primary w-full py-2.5 px-4 rounded-xl font-semibold flex items-center justify-center gap-2 text-sm">
+                    <div class="p-5 flex-grow flex flex-col justify-between space-y-4">
+                        <div>
+                            <h4 class="text-lg font-bold text-m3-onSurface font-heading mb-1">травлинет.рф</h4>
+                            <p class="text-xs sm:text-sm text-m3-onSurfaceVariant leading-relaxed">
+                                Проект помощи детям, родителям и педагогам. Методические материалы и алгоритмы решения проблемы травли.
+                            </p>
+                        </div>
+                        <a href="https://травлинет.рф" target="_blank" rel="noopener noreferrer" class="w-full py-2.5 px-4 bg-m3-primary text-m3-onPrimary font-bold rounded-full text-xs sm:text-sm flex items-center justify-center gap-2 hover:opacity-90 transition-opacity">
                             <span>Перейти на сайт</span>
-                            <i data-lucide="arrow-up-right" class="w-4 h-4"></i>
+                            <i class="fa-solid fa-arrow-up-right-from-square"></i>
                         </a>
                     </div>
                 </div>
 
-                <!-- ЯНеПлакса -->
-                <div class="resource-card card-solid overflow-hidden flex flex-col justify-between">
-                    <div>
-                        <div class="h-44 bg-slate-100 relative overflow-hidden">
-                            <img src="https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?auto=format&fit=crop&w=600&q=80" alt="ЯНеПлакса" class="w-full h-full object-cover">
-                            <span class="badge-category absolute top-3 left-3 text-xs font-semibold px-2.5 py-1 rounded-full">Поддержка</span>
-                        </div>
-                        <div class="p-5">
-                            <h3 class="text-xl font-bold mb-2">ЯНеПлакса.рф</h3>
-                            <p class="text-sm opacity-80 mb-4">Информационный портал о кибербуллинге и школьной травле. Как защитить себя и близких.</p>
-                        </div>
+                <!-- янеплакса.рф -->
+                <div class="bg-m3-cardBg rounded-3xl border border-m3-outline/15 shadow-m3-sm hover:shadow-m3-md transition-all duration-300 flex flex-col justify-between overflow-hidden group">
+                    <div class="relative h-44 overflow-hidden bg-m3-surfaceVariant">
+                        <img src="https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?auto=format&fit=crop&w=600&q=80" alt="Я Не Плакса" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        <span class="absolute top-3 left-3 bg-m3-primary text-m3-onPrimary text-xs font-bold px-3 py-1 rounded-full shadow-sm">Сайт</span>
                     </div>
-                    <div class="p-5 pt-0">
-                        <a href="https://янеплакса.рф/" target="_blank" rel="noopener noreferrer" class="btn-primary w-full py-2.5 px-4 rounded-xl font-semibold flex items-center justify-center gap-2 text-sm">
+                    <div class="p-5 flex-grow flex flex-col justify-between space-y-4">
+                        <div>
+                            <h4 class="text-lg font-bold text-m3-onSurface font-heading mb-1">янеплакса.рф</h4>
+                            <p class="text-xs sm:text-sm text-m3-onSurfaceVariant leading-relaxed">
+                                Информационный портал о поддержке при травле и правильной реакции на систематическую агрессию.
+                            </p>
+                        </div>
+                        <a href="https://янеплакса.рф/" target="_blank" rel="noopener noreferrer" class="w-full py-2.5 px-4 bg-m3-primary text-m3-onPrimary font-bold rounded-full text-xs sm:text-sm flex items-center justify-center gap-2 hover:opacity-90 transition-opacity">
                             <span>Перейти на сайт</span>
-                            <i data-lucide="arrow-up-right" class="w-4 h-4"></i>
+                            <i class="fa-solid fa-arrow-up-right-from-square"></i>
                         </a>
                     </div>
                 </div>
 
-                <!-- Kiberbulling.net -->
-                <div class="resource-card card-solid overflow-hidden flex flex-col justify-between">
-                    <div>
-                        <div class="h-44 bg-slate-100 relative overflow-hidden">
-                            <img src="https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&w=600&q=80" alt="Кибербуллинг" class="w-full h-full object-cover">
-                            <span class="badge-category absolute top-3 left-3 text-xs font-semibold px-2.5 py-1 rounded-full">Безопасность</span>
-                        </div>
-                        <div class="p-5">
-                            <h3 class="text-xl font-bold mb-2">Кибербуллинг.нет</h3>
-                            <p class="text-sm opacity-80 mb-4">Все о травле в сети интернет: как справляться с хейтом, шантажом и защитить личные данные.</p>
-                        </div>
+                <!-- kiberbulling.net -->
+                <div class="bg-m3-cardBg rounded-3xl border border-m3-outline/15 shadow-m3-sm hover:shadow-m3-md transition-all duration-300 flex flex-col justify-between overflow-hidden group">
+                    <div class="relative h-44 overflow-hidden bg-m3-surfaceVariant">
+                        <img src="https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&w=600&q=80" alt="Кибербуллинг" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        <span class="absolute top-3 left-3 bg-m3-primary text-m3-onPrimary text-xs font-bold px-3 py-1 rounded-full shadow-sm">Сайт</span>
                     </div>
-                    <div class="p-5 pt-0">
-                        <a href="https://kiberbulling.net/" target="_blank" rel="noopener noreferrer" class="btn-primary w-full py-2.5 px-4 rounded-xl font-semibold flex items-center justify-center gap-2 text-sm">
+                    <div class="p-5 flex-grow flex flex-col justify-between space-y-4">
+                        <div>
+                            <h4 class="text-lg font-bold text-m3-onSurface font-heading mb-1">kiberbulling.net</h4>
+                            <p class="text-xs sm:text-sm text-m3-onSurfaceVariant leading-relaxed">
+                                Защита от интернет-травли, хейта и агрессии в социальных сетях и мессенджерах.
+                            </p>
+                        </div>
+                        <a href="https://kiberbulling.net/" target="_blank" rel="noopener noreferrer" class="w-full py-2.5 px-4 bg-m3-primary text-m3-onPrimary font-bold rounded-full text-xs sm:text-sm flex items-center justify-center gap-2 hover:opacity-90 transition-opacity">
                             <span>Перейти на сайт</span>
-                            <i data-lucide="arrow-up-right" class="w-4 h-4"></i>
+                            <i class="fa-solid fa-arrow-up-right-from-square"></i>
                         </a>
                     </div>
                 </div>
 
                 <!-- Видео 1 -->
-                <div class="resource-card card-solid overflow-hidden flex flex-col justify-between">
-                    <div>
-                        <div class="h-44 bg-black relative">
-                            <iframe class="w-full h-full" src="https://www.youtube.com/embed/Q79VHIOvXPU" title="YouTube video" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                        </div>
-                        <div class="p-5">
-                            <h3 class="text-xl font-bold mb-2">Что такое травля?</h3>
-                            <p class="text-sm opacity-80 mb-4">Видеоразбор механизмов буллинга в коллективе и почему это касается каждого.</p>
-                        </div>
+                <div class="bg-m3-cardBg rounded-3xl border border-m3-outline/15 shadow-m3-sm hover:shadow-m3-md transition-all duration-300 flex flex-col justify-between overflow-hidden">
+                    <div class="relative h-44 bg-black">
+                        <iframe class="w-full h-full" src="https://www.youtube.com/embed/Q79VHIOvXPU" title="YouTube Video" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                     </div>
-                    <div class="p-5 pt-0">
-                        <a href="https://youtu.be/Q79VHIOvXPU" target="_blank" rel="noopener noreferrer" class="btn-primary w-full py-2.5 px-4 rounded-xl font-semibold flex items-center justify-center gap-2 text-sm">
-                            <i data-lucide="youtube" class="w-4 h-4"></i>
+                    <div class="p-5 flex-grow flex flex-col justify-between space-y-4">
+                        <div>
+                            <h4 class="text-lg font-bold text-m3-onSurface font-heading mb-1">Разбор травли</h4>
+                            <p class="text-xs sm:text-sm text-m3-onSurfaceVariant leading-relaxed">
+                                Видеоматериал об основах возникновения травли в коллективах и методах её профилактики.
+                            </p>
+                        </div>
+                        <a href="https://youtu.be/Q79VHIOvXPU" target="_blank" rel="noopener noreferrer" class="w-full py-2.5 px-4 bg-m3-surfaceVariant text-m3-onSurface font-bold rounded-full text-xs sm:text-sm flex items-center justify-center gap-2 border border-m3-outline/20 hover:bg-m3-primary hover:text-m3-onPrimary transition-colors">
+                            <i class="fa-brands fa-youtube text-red-500"></i>
                             <span>Смотреть на YouTube</span>
                         </a>
                     </div>
                 </div>
 
                 <!-- Видео 2 -->
-                <div class="resource-card card-solid overflow-hidden flex flex-col justify-between">
-                    <div>
-                        <div class="h-44 bg-black relative">
-                            <iframe class="w-full h-full" src="https://www.youtube.com/embed/QZTS6zYkMBs" title="YouTube video" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                        </div>
-                        <div class="p-5">
-                            <h3 class="text-xl font-bold mb-2">Как распознать буллинг</h3>
-                            <p class="text-sm opacity-80 mb-4">Наглядное объяснение от экспертов: отличие конфликта от систематической травли.</p>
-                        </div>
+                <div class="bg-m3-cardBg rounded-3xl border border-m3-outline/15 shadow-m3-sm hover:shadow-m3-md transition-all duration-300 flex flex-col justify-between overflow-hidden">
+                    <div class="relative h-44 bg-black">
+                        <iframe class="w-full h-full" src="https://www.youtube.com/embed/QZTS6zYkMBs" title="YouTube Video" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                     </div>
-                    <div class="p-5 pt-0">
-                        <a href="https://youtu.be/QZTS6zYkMBs" target="_blank" rel="noopener noreferrer" class="btn-primary w-full py-2.5 px-4 rounded-xl font-semibold flex items-center justify-center gap-2 text-sm">
-                            <i data-lucide="youtube" class="w-4 h-4"></i>
+                    <div class="p-5 flex-grow flex flex-col justify-between space-y-4">
+                        <div>
+                            <h4 class="text-lg font-bold text-m3-onSurface font-heading mb-1">Причины и последствия</h4>
+                            <p class="text-xs sm:text-sm text-m3-onSurfaceVariant leading-relaxed">
+                                Образовательное видео о том, как травля влияет на эмоциональное состояние и как её предотвратить.
+                            </p>
+                        </div>
+                        <a href="https://youtu.be/QZTS6zYkMBs" target="_blank" rel="noopener noreferrer" class="w-full py-2.5 px-4 bg-m3-surfaceVariant text-m3-onSurface font-bold rounded-full text-xs sm:text-sm flex items-center justify-center gap-2 border border-m3-outline/20 hover:bg-m3-primary hover:text-m3-onPrimary transition-colors">
+                            <i class="fa-brands fa-youtube text-red-500"></i>
                             <span>Смотреть на YouTube</span>
                         </a>
                     </div>
@@ -199,81 +225,87 @@
         </section>
 
         <!-- БЛОК 2: СПРАВИТЬСЯ С БУЛЛИНГОМ (ДЛЯ ЖЕРТВЫ) -->
-        <section class="mb-14">
-            <div class="flex items-center gap-3 mb-6 border-b pb-3 border-[var(--md-surface-variant)]">
-                <i data-lucide="heart-handshake" class="w-6 h-6 text-[var(--md-primary)]"></i>
-                <h2 class="text-2xl font-bold">Как справиться с буллингом (Для тех, кого травят)</h2>
+        <section class="space-y-6">
+            <div class="flex items-center gap-3 border-b border-m3-outline/20 pb-3">
+                <div class="w-9 h-9 rounded-full bg-m3-primaryContainer text-m3-primary flex items-center justify-center text-sm font-bold">
+                    <i class="fa-solid fa-hand-holding-heart"></i>
+                </div>
+                <h3 class="text-xl sm:text-2xl font-bold text-m3-onSurface font-heading">
+                    Справиться с буллингом (Если вы столкнулись с травлей)
+                </h3>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                
-                <!-- Помощь Рядом -->
-                <div class="resource-card card-solid overflow-hidden flex flex-col justify-between md:col-span-2 lg:col-span-1">
-                    <div class="flex flex-col sm:flex-row">
-                        <div class="sm:w-1/2 h-48 sm:h-auto bg-slate-100 relative">
-                            <img src="https://images.unsplash.com/photo-1544027993-37dbfe43562a?auto=format&fit=crop&w=600&q=80" alt="Помощь рядом" class="w-full h-full object-cover">
+                <!-- Помощь рядом -->
+                <div class="bg-m3-cardBg rounded-3xl border border-m3-outline/15 shadow-m3-sm hover:shadow-m3-md transition-all duration-300 overflow-hidden flex flex-col sm:flex-row group">
+                    <div class="sm:w-2/5 h-48 sm:h-auto relative overflow-hidden bg-m3-surfaceVariant">
+                        <img src="https://images.unsplash.com/photo-1544027993-37dbfe43562a?auto=format&fit=crop&w=600&q=80" alt="Помощь рядом" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                    </div>
+                    <div class="sm:w-3/5 p-6 flex flex-col justify-between space-y-4">
+                        <div>
+                            <span class="inline-block bg-m3-primaryContainer text-m3-onPrimaryContainer text-[11px] font-bold px-3 py-1 rounded-full mb-2">Психологическая помощь</span>
+                            <h4 class="text-xl font-bold text-m3-onSurface font-heading mb-2">Помощь рядом</h4>
+                            <p class="text-xs sm:text-sm text-m3-onSurfaceVariant leading-relaxed">
+                                Бесплатная психологическая онлайн-помощь для детей и подростков. Безопасное пространство, где можно анонимно поделиться своей проблемой.
+                            </p>
                         </div>
-                        <div class="sm:w-1/2 p-6 flex flex-col justify-between">
-                            <div>
-                                <span class="badge-category inline-block text-xs font-semibold px-2.5 py-1 rounded-full mb-3">Экстренная помощь</span>
-                                <h3 class="text-xl font-bold mb-2">Помощь Рядом</h3>
-                                <p class="text-sm opacity-80 mb-4">Бесплатная психологическая онлайн-помощь для детей и подростков до 18 лет. Можно написать в чат и получить поддержку.</p>
-                            </div>
-                            <a href="https://pomoschryadom.ru/" target="_blank" rel="noopener noreferrer" class="btn-primary w-full py-2.5 px-4 rounded-xl font-semibold flex items-center justify-center gap-2 text-sm">
-                                <span>Написать в чат</span>
-                                <i data-lucide="message-circle" class="w-4 h-4"></i>
-                            </a>
-                        </div>
+                        <a href="https://pomoschryadom.ru/" target="_blank" rel="noopener noreferrer" class="w-full py-2.5 px-4 bg-m3-primary text-m3-onPrimary font-bold rounded-full text-xs sm:text-sm flex items-center justify-center gap-2 hover:opacity-90 transition-opacity">
+                            <span>Написать в чат помощи</span>
+                            <i class="fa-solid fa-comments"></i>
+                        </a>
                     </div>
                 </div>
-
             </div>
         </section>
 
         <!-- БЛОК 3: ПЕРЕСТАТЬ БУЛЛИТЬ (ДЛЯ АГРЕССОРА И УЧИТЕЛЯ) -->
-        <section class="mb-10">
-            <div class="flex items-center gap-3 mb-6 border-b pb-3 border-[var(--md-surface-variant)]">
-                <i data-lucide="user-check" class="w-6 h-6 text-[var(--md-primary)]"></i>
-                <h2 class="text-2xl font-bold">Перестать буллить и изменить ситуацию</h2>
+        <section class="space-y-6">
+            <div class="flex items-center gap-3 border-b border-m3-outline/20 pb-3">
+                <div class="w-9 h-9 rounded-full bg-m3-primaryContainer text-m3-primary flex items-center justify-center text-sm font-bold">
+                    <i class="fa-solid fa-user-gear"></i>
+                </div>
+                <h3 class="text-xl sm:text-2xl font-bold text-m3-onSurface font-heading">
+                    Перестать буллить (Для участников и преподавателей)
+                </h3>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 
                 <!-- Для агрессора -->
-                <div class="resource-card card-solid overflow-hidden flex flex-col justify-between">
-                    <div>
-                        <div class="h-48 bg-black relative">
-                            <iframe class="w-full h-full" src="https://www.youtube.com/embed/I6L5qpNKPb4" title="YouTube video" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                        </div>
-                        <div class="p-5">
-                            <span class="badge-category inline-block text-xs font-semibold px-2.5 py-1 rounded-full mb-2">Для агрессора</span>
-                            <h3 class="text-xl font-bold mb-2">Что делать, если ты сам обижаешь других?</h3>
-                            <p class="text-sm opacity-80 mb-4">Видео для тех, кто осознал свое поведение и хочет научиться выражать эмоции без агрессии к окружающим.</p>
-                        </div>
+                <div class="bg-m3-cardBg rounded-3xl border border-m3-outline/15 shadow-m3-sm hover:shadow-m3-md transition-all duration-300 flex flex-col justify-between overflow-hidden">
+                    <div class="relative h-48 bg-black">
+                        <iframe class="w-full h-full" src="https://www.youtube.com/embed/I6L5qpNKPb4" title="YouTube Video" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                     </div>
-                    <div class="p-5 pt-0">
-                        <a href="https://youtu.be/I6L5qpNKPb4" target="_blank" rel="noopener noreferrer" class="btn-primary w-full py-2.5 px-4 rounded-xl font-semibold flex items-center justify-center gap-2 text-sm">
-                            <i data-lucide="youtube" class="w-4 h-4"></i>
+                    <div class="p-5 flex-grow flex flex-col justify-between space-y-4">
+                        <div>
+                            <span class="inline-block bg-m3-surfaceVariant text-m3-onSurfaceVariant text-[11px] font-bold px-3 py-1 rounded-full mb-2">Для инициаторов</span>
+                            <h4 class="text-lg font-bold text-m3-onSurface font-heading mb-1">Как остановиться самому?</h4>
+                            <p class="text-xs sm:text-sm text-m3-onSurfaceVariant leading-relaxed">
+                                Практическое видео для тех, кто замечает за собой агрессию и хочет научиться экологично выражать свои эмоции.
+                            </p>
+                        </div>
+                        <a href="https://youtu.be/I6L5qpNKPb4" target="_blank" rel="noopener noreferrer" class="w-full py-2.5 px-4 bg-m3-primary text-m3-onPrimary font-bold rounded-full text-xs sm:text-sm flex items-center justify-center gap-2 hover:opacity-90 transition-opacity">
+                            <i class="fa-brands fa-youtube"></i>
                             <span>Смотреть видео</span>
                         </a>
                     </div>
                 </div>
 
                 <!-- Для учителя -->
-                <div class="resource-card card-solid overflow-hidden flex flex-col justify-between">
-                    <div>
-                        <div class="h-48 bg-black relative">
-                            <iframe class="w-full h-full" src="https://www.youtube.com/embed/LgWulelxwFs" title="YouTube video" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                        </div>
-                        <div class="p-5">
-                            <span class="badge-category inline-block text-xs font-semibold px-2.5 py-1 rounded-full mb-2">Для учителей</span>
-                            <h3 class="text-xl font-bold mb-2">Роль преподавателя в остановке травли</h3>
-                            <p class="text-sm opacity-80 mb-4">Инструкция для педагогов и классных руководителей: алгоритмы действий и остановка травли в классе.</p>
-                        </div>
+                <div class="bg-m3-cardBg rounded-3xl border border-m3-outline/15 shadow-m3-sm hover:shadow-m3-md transition-all duration-300 flex flex-col justify-between overflow-hidden">
+                    <div class="relative h-48 bg-black">
+                        <iframe class="w-full h-full" src="https://www.youtube.com/embed/LgWulelxwFs" title="YouTube Video" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                     </div>
-                    <div class="p-5 pt-0">
-                        <a href="https://youtu.be/LgWulelxwFs" target="_blank" rel="noopener noreferrer" class="btn-primary w-full py-2.5 px-4 rounded-xl font-semibold flex items-center justify-center gap-2 text-sm">
-                            <i data-lucide="youtube" class="w-4 h-4"></i>
+                    <div class="p-5 flex-grow flex flex-col justify-between space-y-4">
+                        <div>
+                            <span class="inline-block bg-m3-surfaceVariant text-m3-onSurfaceVariant text-[11px] font-bold px-3 py-1 rounded-full mb-2">Для учителей</span>
+                            <h4 class="text-lg font-bold text-m3-onSurface font-heading mb-1">Роль педагога в предотвращении травли</h4>
+                            <p class="text-xs sm:text-sm text-m3-onSurfaceVariant leading-relaxed">
+                                Рекомендации для учителей и руководства школы: как вовремя заметить буллинг и защитить учеников.
+                            </p>
+                        </div>
+                        <a href="https://youtu.be/LgWulelxwFs" target="_blank" rel="noopener noreferrer" class="w-full py-2.5 px-4 bg-m3-primary text-m3-onPrimary font-bold rounded-full text-xs sm:text-sm flex items-center justify-center gap-2 hover:opacity-90 transition-opacity">
+                            <i class="fa-brands fa-youtube"></i>
                             <span>Смотреть видео</span>
                         </a>
                     </div>
@@ -285,13 +317,54 @@
     </main>
 
     <!-- Подвал страницы -->
-    <footer class="mt-auto py-6 text-center text-sm opacity-70 border-t border-[var(--md-surface-variant)]">
-        <p>© 2026 Проект противодействия буллингу. Все материалы представлены для ознакомления.</p>
+    <footer class="bg-m3-surfaceVariant border-t border-m3-outline/15 py-6 px-4 text-center text-xs sm:text-sm text-m3-onSurfaceVariant mt-12">
+        <div class="max-w-6xl mx-auto space-y-2">
+            <div class="flex justify-center items-center gap-2">
+                <div class="w-5 h-5 dynamic-logo"></div>
+                <span class="font-bold font-heading text-m3-onSurface">Социальный проект «Моральный скотч»</span>
+            </div>
+            <p>Платформа для молодых авторов • Поддержка и информация</p>
+            <p class="opacity-70 text-[11px]">Все материалы собраны в образовательных и гуманитарных целях.</p>
+        </div>
     </footer>
 
-    <!-- Инициализация иконки Lucide -->
+    <!-- Скрипт управления темами -->
     <script>
-        lucide.createIcons();
+        function setTheme(themeName) {
+            const validThemes = ['lavender', 'dark', 'coral'];
+            if (!validThemes.includes(themeName)) return;
+
+            document.documentElement.className = 'theme-' + themeName;
+            localStorage.setItem('user_theme', themeName);
+
+            try {
+                const url = new URL(window.location.href);
+                url.searchParams.set('theme', themeName);
+                window.history.replaceState({}, '', url.toString());
+            } catch (e) {
+                console.error("Не удалось обновить параметр темы в URL:", e);
+            }
+
+            updateOutgoingLinksTheme(themeName);
+        }
+
+        function updateOutgoingLinksTheme(themeName) {
+            document.querySelectorAll('a').forEach(anchor => {
+                const href = anchor.getAttribute('href');
+                if (href && !href.startsWith('#') && !href.startsWith('tel:') && !href.startsWith('javascript:')) {
+                    try {
+                        const targetUrl = new URL(href, window.location.origin);
+                        targetUrl.searchParams.set('theme', themeName);
+                        anchor.setAttribute('href', targetUrl.toString());
+                    } catch (e) {}
+                }
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const currentTheme = localStorage.getItem('user_theme') || 'lavender';
+            setTheme(currentTheme);
+        });
     </script>
 </body>
 </html>
