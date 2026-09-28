@@ -3,345 +3,295 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Полезные материалы: Противодействие буллингу</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <title>Полезные материалы — Противодействие буллингу</title>
+    
+    <!-- Подключение шрифтов -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@500;700&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS CDN (для сетки и быстрого верстки) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Иконки Lucide -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <!-- Общий CSS-файл проекта -->
+    <link rel="stylesheet" href="styles.css">
+    
     <style>
-        :root {
-            --bg-color: #f8fafc;
-            --card-bg: #ffffff;
-            --text-main: #0f172a;
-            --text-muted: #64748b;
-            --primary: #4f46e5;
-            --primary-hover: #4338ca;
-            --accent-general: #3b82f6;
-            --accent-victim: #ef4444;
-            --accent-aggressor: #10b981;
-            --border-color: #e2e8f0;
-            --radius: 16px;
-            --shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.05);
-            --shadow-hover: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+        /* Дополнительные вспомогательные стили для карточек материалов */
+        .resource-card {
+            background-color: var(--md-card-bg);
+            border: 1px solid var(--md-surface-variant);
+            border-radius: 1.25rem;
+            transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
         }
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-main);
-            line-height: 1.6;
-            padding: 40px 20px;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        header {
-            text-align: center;
-            margin-bottom: 50px;
-        }
-
-        header h1 {
-            font-size: 2.5rem;
-            font-weight: 700;
-            color: var(--text-main);
-            margin-bottom: 12px;
-        }
-
-        header p {
-            font-size: 1.125rem;
-            color: var(--text-muted);
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-        .section {
-            margin-bottom: 60px;
-        }
-
-        .section-header {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            margin-bottom: 24px;
-            padding-bottom: 12px;
-            border-bottom: 2px solid var(--border-color);
-        }
-
-        .section-title {
-            font-size: 1.75rem;
-            font-weight: 600;
-        }
-
-        .badge {
-            display: inline-block;
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-        }
-
-        /* Section Specific Colors */
-        .general .badge { background-color: var(--accent-general); }
-        .victim .badge { background-color: var(--accent-victim); }
-        .aggressor .badge { background-color: var(--accent-aggressor); }
-
-        .cards-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-            gap: 24px;
-        }
-
-        .card {
-            background-color: var(--card-bg);
-            border-radius: var(--radius);
-            overflow: hidden;
-            border: 1px solid var(--border-color);
-            box-shadow: var(--shadow);
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .card:hover {
+        .resource-card:hover {
             transform: translateY(-4px);
-            box-shadow: var(--shadow-hover);
+            box-shadow: 0 12px 24px -6px rgba(0, 0, 0, 0.08);
+            border-color: var(--md-primary);
         }
 
-        .media-container {
-            position: relative;
-            width: 100%;
-            padding-top: 56.25%; /* 16:9 Aspect Ratio */
-            background-color: #000;
+        .badge-category {
+            background-color: var(--md-primary-container);
+            color: var(--md-on-primary-container);
         }
 
-        .media-container iframe, 
-        .media-container img {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            border: 0;
+        .btn-primary {
+            background-color: var(--md-primary);
+            color: var(--md-on-primary);
+            transition: opacity 0.2s ease;
         }
 
-        .card-content {
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            flex-grow: 1;
-        }
-
-        .card-type {
-            font-size: 0.75rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            color: var(--text-muted);
-            margin-bottom: 8px;
-        }
-
-        .card-title {
-            font-size: 1.25rem;
-            font-weight: 600;
-            margin-bottom: 8px;
-            color: var(--text-main);
-        }
-
-        .card-description {
-            font-size: 0.95rem;
-            color: var(--text-muted);
-            margin-bottom: 20px;
-            flex-grow: 1;
-        }
-
-        .card-button {
-            display: inline-block;
-            text-align: center;
-            background-color: var(--primary);
-            color: #ffffff;
-            text-decoration: none;
-            padding: 10px 16px;
-            border-radius: 8px;
-            font-weight: 500;
-            font-size: 0.9rem;
-            transition: background-color 0.2s ease;
-        }
-
-        .card-button:hover {
-            background-color: var(--primary-hover);
-        }
-
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            body {
-                padding: 20px 12px;
-            }
-
-            header h1 {
-                font-size: 1.8rem;
-            }
-
-            .section-title {
-                font-size: 1.4rem;
-            }
-
-            .cards-grid {
-                grid-template-columns: 1fr;
-            }
+        .btn-primary:hover {
+            opacity: 0.9;
         }
     </style>
 </head>
-<body>
+<body class="min-h-screen flex flex-col font-sans">
 
-    <div class="container">
-        <header>
-            <h1>База знаний: Противодействие буллингу</h1>
-            <p>Полезные ресурсы, статьи и видеоматериалы для помощи детям, родителям и учителям.</p>
-        </header>
-
-        <!-- БЛОК 1: ОБЩИЕ МАТЕРИАЛЫ -->
-        <section class="section general">
-            <div class="section-header">
-                <span class="badge"></span>
-                <h2 class="section-title">Общие материалы</h2>
-            </div>
-            <div class="cards-grid">
-                
-                <!-- Травли нет -->
-                <div class="card">
-                    <div class="media-container">
-                        <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=800&q=80" alt="Травли нет">
-                    </div>
-                    <div class="card-content">
-                        <span class="card-type">Веб-сайт / Портал</span>
-                        <h3 class="card-title">Травлинет.рф</h3>
-                        <p class="card-description">Проект по профилактике травли в школьной среде. Методические материалы, инструкции и обучающие программы.</p>
-                        <a href="https://травлинет.рф" target="_blank" rel="noopener" class="card-button">Перейти на сайт</a>
-                    </div>
-                </div>
-
-                <!-- Кибербуллинг -->
-                <div class="card">
-                    <div class="media-container">
-                        <img src="https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&w=800&q=80" alt="Кибербуллинг">
-                    </div>
-                    <div class="card-content">
-                        <span class="card-type">Веб-сайт / Инициатива</span>
-                        <h3 class="card-title">kiberbulling.net</h3>
-                        <p class="card-description">Информационный портал о цифровой безопасности и травле в сети Internet.</p>
-                        <a href="https://kiberbulling.net/" target="_blank" rel="noopener" class="card-button">Перейти на сайт</a>
-                    </div>
-                </div>
-
-                <!-- Видео: Общий разбор -->
-                <div class="card">
-                    <div class="media-container">
-                        <iframe src="https://www.youtube.com/embed/Q79VHIOvXPU" title="YouTube video player" allowfullscreen></iframe>
-                    </div>
-                    <div class="card-content">
-                        <span class="card-type">Видео</span>
-                        <h3 class="card-title">Что такое буллинг и как с ним бороться</h3>
-                        <p class="card-description">Подробный видеоразбор причин возникновения буллинга и эффективных методов его предотвращения.</p>
-                        <a href="https://youtu.be/Q79VHIOvXPU" target="_blank" rel="noopener" class="card-button">Смотреть на YouTube</a>
-                    </div>
-                </div>
-
-            </div>
-        </section>
-
-        <!-- БЛОК 2: СПРАВИТЬСЯ С БУЛЛИНГОМ -->
-        <section class="section victim">
-            <div class="section-header">
-                <span class="badge"></span>
-                <h2 class="section-title">Как справиться с буллингом</h2>
-            </div>
-            <div class="cards-grid">
-
-                <!-- Я Не Плакса -->
-                <div class="card">
-                    <div class="media-container">
-                        <img src="https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&w=800&q=80" alt="Я не плакса">
-                    </div>
-                    <div class="card-content">
-                        <span class="card-type">Поддержка / Помощь</span>
-                        <h3 class="card-title">Янеплакса.рф</h3>
-                        <p class="card-description">Социальный проект поддержки пострадавших от травли. Пошаговые советы и психологическая помощь.</p>
-                        <a href="https://янеплакса.рф/" target="_blank" rel="noopener" class="card-button">Перейти на сайт</a>
-                    </div>
-                </div>
-
-                <!-- Помощь рядом -->
-                <div class="card">
-                    <div class="media-container">
-                        <img src="https://images.unsplash.com/photo-1516534775068-ba3e7458af70?auto=format&fit=crop&w=800&q=80" alt="Помощь рядом">
-                    </div>
-                    <div class="card-content">
-                        <span class="card-type">Служба помощи</span>
-                        <h3 class="card-title">Pomoschryadom.ru</h3>
-                        <p class="card-description">Бесплатная психологическая и юридическая помощь детям и подросткам онлайн.</p>
-                        <a href="https://pomoschryadom.ru/" target="_blank" rel="noopener" class="card-button">Перейти на сайт</a>
-                    </div>
-                </div>
-
-                <!-- Видео: Инструкция для жертвы -->
-                <div class="card">
-                    <div class="media-container">
-                        <iframe src="https://www.youtube.com/embed/I6L5qpNKPb4" title="YouTube video player" allowfullscreen></iframe>
-                    </div>
-                    <div class="card-content">
-                        <span class="card-type">Видео</span>
-                        <h3 class="card-title">Что делать, если тебя травят</h3>
-                        <p class="card-description">Практические советы психологов и техников защиты, если вы оказались в роли жертвы.</p>
-                        <a href="https://youtu.be/I6L5qpNKPb4" target="_blank" rel="noopener" class="card-button">Смотреть на YouTube</a>
-                    </div>
-                </div>
-
-                <!-- Видео: Эмоциональная защита -->
-                <div class="card">
-                    <div class="media-container">
-                        <iframe src="https://www.youtube.com/embed/LgWulelxwFs" title="YouTube video player" allowfullscreen></iframe>
-                    </div>
-                    <div class="card-content">
-                        <span class="card-type">Видео</span>
-                        <h3 class="card-title">Как защитить себя от травли</h3>
-                        <p class="card-description">Разбор способов поведения, удерживания границ и поиска помощи у взрослых и специалистов.</p>
-                        <a href="https://youtu.be/LgWulelxwFs" target="_blank" rel="noopener" class="card-button">Смотреть на YouTube</a>
-                    </div>
-                </div>
-
-            </div>
-        </section>
-
-        <!-- БЛОК 3: ПЕРЕСТАТЬ БУЛЛИТЬ -->
-        <section class="section aggressor">
-            <div class="section-header">
-                <span class="badge"></span>
-                <h2 class="section-title">Перестать буллить</h2>
-            </div>
-            <div class="cards-grid">
-
-                <!-- Видео: Осознание и изменение поведения -->
-                <div class="card">
-                    <div class="media-container">
-                        <iframe src="https://www.youtube.com/embed/QZTS6zYkMBs" title="YouTube video player" allowfullscreen></iframe>
-                    </div>
-                    <div class="card-content">
-                        <span class="card-type">Видео</span>
-                        <h3 class="card-title">Как перестать проявлять агрессию</h3>
-                        <p class="card-description">Разбор причин агрессивного поведения, осознание последствий и способы конструктивного выражения эмоций.</p>
-                        <a href="https://youtu.be/QZTS6zYkMBs" target="_blank" rel="noopener" class="card-button">Смотреть на YouTube</a>
-                    </div>
-                </div>
-
-            </div>
-        </section>
+    <!-- Панель анонимности и быстрого выхода (Panic Exit Bar) -->
+    <div class="panic-exit-bar sticky top-0 z-50 px-4 py-2 flex justify-between items-center text-sm">
+        <div class="flex items-center gap-2">
+            <i data-lucide="shield-check" class="w-4 h-4 text-emerald-600"></i>
+            <span>Ваше пребывание здесь анонимно</span>
+        </div>
+        <button onclick="window.location.href='https://weather.com'" class="bg-red-600 hover:bg-red-700 text-white font-bold py-1 px-3 rounded-full flex items-center gap-1 text-xs">
+            <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
+            <span>Быстрый уход (Яндекс/Погода)</span>
+        </button>
     </div>
 
+    <!-- Шапка сайта -->
+    <header class="px-6 py-4 flex justify-between items-center">
+        <div class="flex items-center gap-3">
+            <div class="dynamic-logo w-8 h-8"></div>
+            <a href="#" class="text-xl font-bold font-heading tracking-wide">ВместеПротивБуллинга</a>
+        </div>
+        <nav class="hidden md:flex gap-6 text-sm font-semibold">
+            <a href="#" class="hover:underline">Главная</a>
+            <a href="#" class="hover:underline text-[var(--md-primary)]">Материалы</a>
+            <a href="#" class="hover:underline">Помощь</a>
+        </nav>
+    </header>
+
+    <!-- Основной контент -->
+    <main class="flex-grow max-w-6xl w-full mx-auto px-4 py-8 animate-fade-in">
+        
+        <!-- Заголовок страницы -->
+        <section class="text-center mb-12">
+            <h1 class="text-3xl md:text-4xl font-bold mb-3">Полезные материалы и ресурсы</h1>
+            <p class="text-lg opacity-80 max-w-2xl mx-auto">
+                Подборка проверенных сайтов, горячих линий и видеоматериалов, которые помогут разобраться в проблеме буллинга и найти выход.
+            </p>
+        </section>
+
+        <!-- БЛОК 1: ОБЩИЕ МАТЕРИАЛЫ -->
+        <section class="mb-14">
+            <div class="flex items-center gap-3 mb-6 border-b pb-3 border-[var(--md-surface-variant)]">
+                <i data-lucide="book-open" class="w-6 h-6 text-[var(--md-primary)]"></i>
+                <h2 class="text-2xl font-bold">Общие ресурсы</h2>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                
+                <!-- Травлинет.рф -->
+                <div class="resource-card card-solid overflow-hidden flex flex-col justify-between">
+                    <div>
+                        <div class="h-44 bg-slate-100 relative overflow-hidden">
+                            <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=600&q=80" alt="Травлинет" class="w-full h-full object-cover">
+                            <span class="badge-category absolute top-3 left-3 text-xs font-semibold px-2.5 py-1 rounded-full">Проект</span>
+                        </div>
+                        <div class="p-5">
+                            <h3 class="text-xl font-bold mb-2">Травли нет</h3>
+                            <p class="text-sm opacity-80 mb-4">Официальный проект помощи детям, родителям и учителям. Инструкции, методологические материалы и поддержка.</p>
+                        </div>
+                    </div>
+                    <div class="p-5 pt-0">
+                        <a href="https://травлинет.рф" target="_blank" rel="noopener noreferrer" class="btn-primary w-full py-2.5 px-4 rounded-xl font-semibold flex items-center justify-center gap-2 text-sm">
+                            <span>Перейти на сайт</span>
+                            <i data-lucide="arrow-up-right" class="w-4 h-4"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- ЯНеПлакса -->
+                <div class="resource-card card-solid overflow-hidden flex flex-col justify-between">
+                    <div>
+                        <div class="h-44 bg-slate-100 relative overflow-hidden">
+                            <img src="https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?auto=format&fit=crop&w=600&q=80" alt="ЯНеПлакса" class="w-full h-full object-cover">
+                            <span class="badge-category absolute top-3 left-3 text-xs font-semibold px-2.5 py-1 rounded-full">Поддержка</span>
+                        </div>
+                        <div class="p-5">
+                            <h3 class="text-xl font-bold mb-2">ЯНеПлакса.рф</h3>
+                            <p class="text-sm opacity-80 mb-4">Информационный портал о кибербуллинге и школьной травле. Как защитить себя и близких.</p>
+                        </div>
+                    </div>
+                    <div class="p-5 pt-0">
+                        <a href="https://янеплакса.рф/" target="_blank" rel="noopener noreferrer" class="btn-primary w-full py-2.5 px-4 rounded-xl font-semibold flex items-center justify-center gap-2 text-sm">
+                            <span>Перейти на сайт</span>
+                            <i data-lucide="arrow-up-right" class="w-4 h-4"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Kiberbulling.net -->
+                <div class="resource-card card-solid overflow-hidden flex flex-col justify-between">
+                    <div>
+                        <div class="h-44 bg-slate-100 relative overflow-hidden">
+                            <img src="https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&w=600&q=80" alt="Кибербуллинг" class="w-full h-full object-cover">
+                            <span class="badge-category absolute top-3 left-3 text-xs font-semibold px-2.5 py-1 rounded-full">Безопасность</span>
+                        </div>
+                        <div class="p-5">
+                            <h3 class="text-xl font-bold mb-2">Кибербуллинг.нет</h3>
+                            <p class="text-sm opacity-80 mb-4">Все о травле в сети интернет: как справляться с хейтом, шантажом и защитить личные данные.</p>
+                        </div>
+                    </div>
+                    <div class="p-5 pt-0">
+                        <a href="https://kiberbulling.net/" target="_blank" rel="noopener noreferrer" class="btn-primary w-full py-2.5 px-4 rounded-xl font-semibold flex items-center justify-center gap-2 text-sm">
+                            <span>Перейти на сайт</span>
+                            <i data-lucide="arrow-up-right" class="w-4 h-4"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Видео 1 -->
+                <div class="resource-card card-solid overflow-hidden flex flex-col justify-between">
+                    <div>
+                        <div class="h-44 bg-black relative">
+                            <iframe class="w-full h-full" src="https://www.youtube.com/embed/Q79VHIOvXPU" title="YouTube video" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        </div>
+                        <div class="p-5">
+                            <h3 class="text-xl font-bold mb-2">Что такое травля?</h3>
+                            <p class="text-sm opacity-80 mb-4">Видеоразбор механизмов буллинга в коллективе и почему это касается каждого.</p>
+                        </div>
+                    </div>
+                    <div class="p-5 pt-0">
+                        <a href="https://youtu.be/Q79VHIOvXPU" target="_blank" rel="noopener noreferrer" class="btn-primary w-full py-2.5 px-4 rounded-xl font-semibold flex items-center justify-center gap-2 text-sm">
+                            <i data-lucide="youtube" class="w-4 h-4"></i>
+                            <span>Смотреть на YouTube</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Видео 2 -->
+                <div class="resource-card card-solid overflow-hidden flex flex-col justify-between">
+                    <div>
+                        <div class="h-44 bg-black relative">
+                            <iframe class="w-full h-full" src="https://www.youtube.com/embed/QZTS6zYkMBs" title="YouTube video" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        </div>
+                        <div class="p-5">
+                            <h3 class="text-xl font-bold mb-2">Как распознать буллинг</h3>
+                            <p class="text-sm opacity-80 mb-4">Наглядное объяснение от экспертов: отличие конфликта от систематической травли.</p>
+                        </div>
+                    </div>
+                    <div class="p-5 pt-0">
+                        <a href="https://youtu.be/QZTS6zYkMBs" target="_blank" rel="noopener noreferrer" class="btn-primary w-full py-2.5 px-4 rounded-xl font-semibold flex items-center justify-center gap-2 text-sm">
+                            <i data-lucide="youtube" class="w-4 h-4"></i>
+                            <span>Смотреть на YouTube</span>
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- БЛОК 2: СПРАВИТЬСЯ С БУЛЛИНГОМ (ДЛЯ ЖЕРТВЫ) -->
+        <section class="mb-14">
+            <div class="flex items-center gap-3 mb-6 border-b pb-3 border-[var(--md-surface-variant)]">
+                <i data-lucide="heart-handshake" class="w-6 h-6 text-[var(--md-primary)]"></i>
+                <h2 class="text-2xl font-bold">Как справиться с буллингом (Для тех, кого травят)</h2>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                
+                <!-- Помощь Рядом -->
+                <div class="resource-card card-solid overflow-hidden flex flex-col justify-between md:col-span-2 lg:col-span-1">
+                    <div class="flex flex-col sm:flex-row">
+                        <div class="sm:w-1/2 h-48 sm:h-auto bg-slate-100 relative">
+                            <img src="https://images.unsplash.com/photo-1544027993-37dbfe43562a?auto=format&fit=crop&w=600&q=80" alt="Помощь рядом" class="w-full h-full object-cover">
+                        </div>
+                        <div class="sm:w-1/2 p-6 flex flex-col justify-between">
+                            <div>
+                                <span class="badge-category inline-block text-xs font-semibold px-2.5 py-1 rounded-full mb-3">Экстренная помощь</span>
+                                <h3 class="text-xl font-bold mb-2">Помощь Рядом</h3>
+                                <p class="text-sm opacity-80 mb-4">Бесплатная психологическая онлайн-помощь для детей и подростков до 18 лет. Можно написать в чат и получить поддержку.</p>
+                            </div>
+                            <a href="https://pomoschryadom.ru/" target="_blank" rel="noopener noreferrer" class="btn-primary w-full py-2.5 px-4 rounded-xl font-semibold flex items-center justify-center gap-2 text-sm">
+                                <span>Написать в чат</span>
+                                <i data-lucide="message-circle" class="w-4 h-4"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- БЛОК 3: ПЕРЕСТАТЬ БУЛЛИТЬ (ДЛЯ АГРЕССОРА И УЧИТЕЛЯ) -->
+        <section class="mb-10">
+            <div class="flex items-center gap-3 mb-6 border-b pb-3 border-[var(--md-surface-variant)]">
+                <i data-lucide="user-check" class="w-6 h-6 text-[var(--md-primary)]"></i>
+                <h2 class="text-2xl font-bold">Перестать буллить и изменить ситуацию</h2>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                
+                <!-- Для агрессора -->
+                <div class="resource-card card-solid overflow-hidden flex flex-col justify-between">
+                    <div>
+                        <div class="h-48 bg-black relative">
+                            <iframe class="w-full h-full" src="https://www.youtube.com/embed/I6L5qpNKPb4" title="YouTube video" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        </div>
+                        <div class="p-5">
+                            <span class="badge-category inline-block text-xs font-semibold px-2.5 py-1 rounded-full mb-2">Для агрессора</span>
+                            <h3 class="text-xl font-bold mb-2">Что делать, если ты сам обижаешь других?</h3>
+                            <p class="text-sm opacity-80 mb-4">Видео для тех, кто осознал свое поведение и хочет научиться выражать эмоции без агрессии к окружающим.</p>
+                        </div>
+                    </div>
+                    <div class="p-5 pt-0">
+                        <a href="https://youtu.be/I6L5qpNKPb4" target="_blank" rel="noopener noreferrer" class="btn-primary w-full py-2.5 px-4 rounded-xl font-semibold flex items-center justify-center gap-2 text-sm">
+                            <i data-lucide="youtube" class="w-4 h-4"></i>
+                            <span>Смотреть видео</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Для учителя -->
+                <div class="resource-card card-solid overflow-hidden flex flex-col justify-between">
+                    <div>
+                        <div class="h-48 bg-black relative">
+                            <iframe class="w-full h-full" src="https://www.youtube.com/embed/LgWulelxwFs" title="YouTube video" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        </div>
+                        <div class="p-5">
+                            <span class="badge-category inline-block text-xs font-semibold px-2.5 py-1 rounded-full mb-2">Для учителей</span>
+                            <h3 class="text-xl font-bold mb-2">Роль преподавателя в остановке травли</h3>
+                            <p class="text-sm opacity-80 mb-4">Инструкция для педагогов и классных руководителей: алгоритмы действий и остановка травли в классе.</p>
+                        </div>
+                    </div>
+                    <div class="p-5 pt-0">
+                        <a href="https://youtu.be/LgWulelxwFs" target="_blank" rel="noopener noreferrer" class="btn-primary w-full py-2.5 px-4 rounded-xl font-semibold flex items-center justify-center gap-2 text-sm">
+                            <i data-lucide="youtube" class="w-4 h-4"></i>
+                            <span>Смотреть видео</span>
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Подвал страницы -->
+    <footer class="mt-auto py-6 text-center text-sm opacity-70 border-t border-[var(--md-surface-variant)]">
+        <p>© 2026 Проект противодействия буллингу. Все материалы представлены для ознакомления.</p>
+    </footer>
+
+    <!-- Инициализация иконки Lucide -->
+    <script>
+        lucide.createIcons();
+    </script>
 </body>
 </html>
