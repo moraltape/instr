@@ -68,8 +68,8 @@
 </head>
 <body class="min-h-screen flex flex-col justify-between selection:bg-m3-primary selection:text-white font-body">
 
-    <!-- Основная шапка проекта -->
-    <header class="sticky top-0 z-40 bg-m3-surface border-b border-m3-outline/10 transition-colors">
+    <!-- Основная шапка проекта (С динамическим скрытием при скролле) -->
+    <header id="main-header" class="sticky top-0 z-40 bg-m3-surface border-b border-m3-outline/10 transition-transform duration-300 ease-in-out">
         <div class="max-w-6xl mx-auto px-4 py-3 sm:py-4 flex items-center justify-between gap-4">
             
             <!-- Переход на главную (Логотип и Название) -->
@@ -126,7 +126,7 @@
                 <!-- травлинет.рф -->
                 <div class="bg-m3-cardBg rounded-3xl border border-m3-outline/15 shadow-m3-sm hover:shadow-m3-md transition-all duration-300 flex flex-col justify-between overflow-hidden group">
                     <div class="relative h-44 overflow-hidden bg-m3-surfaceVariant">
-                        <img src="https://shkolarokotushinskaya-r73.gosweb.gosuslugi.ru/netcat_files/139/2234/OeumrqRg73A.jpg" alt="Травли нет" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=600&q=80" alt="Травли нет" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
                         <span class="absolute top-3 left-3 bg-m3-primary text-m3-onPrimary text-xs font-bold px-3 py-1 rounded-full shadow-sm">Сайт</span>
                     </div>
                     <div class="p-5 flex-grow flex flex-col justify-between space-y-4">
@@ -340,8 +340,9 @@
         </div>
     </footer>
 
-    <!-- Скрипт управления темами -->
+    <!-- Скрипт управления темами и скроллом -->
     <script>
+        // --- Управление темами ---
         function setTheme(themeName) {
             const validThemes = ['lavender', 'dark', 'coral'];
             if (!validThemes.includes(themeName)) return;
@@ -376,6 +377,23 @@
         document.addEventListener('DOMContentLoaded', () => {
             const currentTheme = localStorage.getItem('user_theme') || 'lavender';
             setTheme(currentTheme);
+        });
+
+        // --- Управляющий скрипт скрытия шапки при скролле ---
+        let lastScrollTop = 0;
+        const header = document.getElementById('main-header');
+
+        window.addEventListener('scroll', () => {
+            const currentScroll = window.pageYOffset || document.documentElement.scrollTop;
+
+            if (currentScroll > lastScrollTop && currentScroll > 80) {
+                // Скролл ВНИЗ: убираем шапку вверх за экран
+                header.classList.add('-translate-y-full');
+            } else {
+                // Скролл ВВЕРХ: возвращаем шапку обратно
+                header.classList.remove('-translate-y-full');
+            }
+            lastScrollTop = currentScroll <= 0 ? 0 : currentScroll;
         });
     </script>
 </body>
