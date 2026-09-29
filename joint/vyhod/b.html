@@ -77,8 +77,8 @@
 <body class="min-h-screen flex flex-col justify-between selection:bg-m3-primary selection:text-white transition-colors duration-300">
 
     <div>
-    <!-- Основная шапка (Логотип, Название и Выбор темы) -->
-    <header class="sticky top-0 z-40 bg-m3-surface/90 backdrop-blur-md border-b border-m3-outline/10 transition-colors">
+    <!-- Основная шапка (Однотонная, скрывается при скролле) -->
+    <header id="main-header" class="sticky top-0 z-40 bg-m3-surface border-b border-m3-outline/10 transition-transform duration-300 ease-in-out">
         <div class="max-w-6xl mx-auto px-4 py-3 sm:py-4 flex items-center justify-between gap-4">
             
             <!-- Логотип и Название -->
@@ -89,18 +89,20 @@
                         Моральный скотч
                     </h1>
                     <p class="text-xs text-m3-onSurfaceVariant font-medium hidden sm:block">
-                        Социальный проект для молодых авторов
+                        Центр помощи и поддержки при буллинге
                     </p>
                 </div>
             </a>
-                <!-- Переключатель тем Material You -->
-                <div class="flex items-center gap-1.5 bg-m3-surfaceVariant/50 p-1.5 rounded-full border border-m3-outline/20">
-                    <button onclick="setTheme('lavender')" title="Тема: Лаванда" class="w-6 h-6 rounded-full bg-[#6750A4] border-2 border-white/80 hover:scale-110 transition-transform shadow-sm focus:outline-none"></button>
-                    <button onclick="setTheme('dark')" title="Тема: Тёмная" class="w-6 h-6 rounded-full bg-[#1C1B1F] border-2 border-white/80 hover:scale-110 transition-transform shadow-sm focus:outline-none"></button>
-                    <button onclick="setTheme('coral')" title="Тема: Коралл" class="w-6 h-6 rounded-full bg-[#984061] border-2 border-white/80 hover:scale-110 transition-transform shadow-sm focus:outline-none"></button>
-                </div>
+
+            <!-- Выбор темы -->
+            <div class="flex items-center gap-1.5 bg-m3-surfaceVariant p-1.5 rounded-full border border-m3-outline/20">
+                <button onclick="setTheme('lavender')" id="btn-theme-lavender" class="w-6 h-6 rounded-full bg-[#6750A4] border-2 border-white/80 hover:scale-110 transition-transform shadow-sm" title="Тема: Лаванда"></button>
+                <button onclick="setTheme('dark')" id="btn-theme-dark" class="w-6 h-6 rounded-full bg-[#1C1B1F] border-2 border-white/80 hover:scale-110 transition-transform shadow-sm" title="Тема: Тёмная"></button>
+                <button onclick="setTheme('coral')" id="btn-theme-coral" class="w-6 h-6 rounded-full bg-[#984061] border-2 border-white/80 hover:scale-110 transition-transform shadow-sm" title="Тема: Коралл"></button>
             </div>
-        </header>
+
+        </div>
+    </header>
 
         <main class="max-w-5xl mx-auto px-4 py-6 sm:py-8 space-y-8">
             
