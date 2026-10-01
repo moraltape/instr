@@ -359,6 +359,26 @@
                     </div>
                 </div>
             </section>
+            
+        <!-- Плашка с Дополнительными материалами (размещена внизу страницы после всех советов) -->
+        <section class="bg-m3-cardBg p-6 sm:p-7 rounded-3xl border border-m3-outline/15 shadow-m3-sm flex flex-col sm:flex-row items-center justify-between gap-5 transition-colors">
+            <div class="space-y-1.5 text-center sm:text-left">
+                <span class="inline-block px-3 py-0.5 bg-m3-primaryContainer text-m3-onPrimaryContainer rounded-full text-xs font-bold mb-1">
+                    Полезная библиотека
+                </span>
+                <h3 class="text-xl font-bold font-heading text-m3-onSurface flex items-center justify-center sm:justify-start gap-2">
+                    <i class="fa-solid fa-book-bookmark text-m3-primary"></i>
+                    Дополнительные материалы
+                </h3>
+                <p class="text-sm text-m3-onSurfaceVariant max-w-xl">
+                    Полезные статьи, видео, подборки ресурсов и инструкции, которые помогут глубже разобраться в теме и найти решение.
+                </p>
+            </div>
+            <a href="https://moraltape.github.io/instr/joint/vyhod/res" class="w-full sm:w-auto px-6 py-3.5 bg-m3-primary text-m3-onPrimary font-bold rounded-2xl text-sm hover:opacity-90 transition-all text-center shrink-0 shadow-m3-sm flex items-center justify-center gap-2">
+                <span>Перейти к материалам</span>
+                <i class="fa-solid fa-arrow-right text-xs"></i>
+            </a>
+        </section>
 
         </main>
     </div>
@@ -376,6 +396,21 @@
 
     <!-- Скрипты управления -->
     <script>
+                // 0. Header Hide on Scroll Script
+        let lastScrollY = window.scrollY;
+        const header = document.getElementById('main-header');
+
+        window.addEventListener('scroll', () => {
+            const currentScrollY = window.scrollY;
+
+            // Скрываем только если отскроллили ниже 50px и двигаемся вниз
+            if (currentScrollY > lastScrollY && currentScrollY > 50) {
+                header.classList.add('-translate-y-full');
+            } else {
+                header.classList.remove('-translate-y-full');
+            }
+            lastScrollY = currentScrollY;
+        });
         // 1. Theme Management & URL propagation
         function setTheme(themeName) {
             const validThemes = ['lavender', 'dark', 'coral'];
